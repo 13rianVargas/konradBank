@@ -9,7 +9,6 @@ public abstract class Cuenta {
 	}
 
 	public Cuenta(String numeroCuenta, double saldo, String titular) {
-		super();
 		this.numeroCuenta = numeroCuenta;
 		this.saldo = saldo;
 		this.titular = titular;
@@ -40,7 +39,7 @@ public abstract class Cuenta {
 	}
 	
 	public void depositar (double monto) {
-		
+		 setSaldo(getSaldo() + monto);
 	}
 	
 	public void retirar (double monto) {
