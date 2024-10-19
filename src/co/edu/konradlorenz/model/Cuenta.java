@@ -1,6 +1,6 @@
 package co.edu.konradlorenz.model;
 
-public class Cuenta {
+public abstract class Cuenta {
 	private String numeroCuenta;
 	private double saldo;
 	private String titular;
@@ -44,11 +44,7 @@ public class Cuenta {
 	}
 	
 	public void retirar (double monto) {
-		
-	}
-	
-	public double consultarSaldo () {
-		return saldo;
+		setSaldo(getSaldo() - monto);
 	}
 	
 
