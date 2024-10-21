@@ -13,7 +13,7 @@ public class Cajero {
 
 	private String getActualTime(){
 		LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy"); //Formato más agradable a la vista.
 		String actualTime = fechaHoraActual.format(formato);
 		return actualTime;
 	}
