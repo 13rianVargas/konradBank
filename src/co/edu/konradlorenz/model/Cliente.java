@@ -2,15 +2,15 @@ package co.edu.konradlorenz.model;
 
 public class Cliente implements Tarjeta {
 
-	private String nombre;
-	private long numeroCuenta;
-	private long numeroDocumento;
+	private String nombreCompleto;
+	private String numeroCuenta;
+	private String numeroDocumento;
 	private String numeroTarjeta;
 	private String pin;
 
-	public Cliente(String nombre, long numeroCuenta, long numeroDocumento, String numeroTarjeta, String pin) {
+	public Cliente(String nombreCompleto, String numeroCuenta, String numeroDocumento, String numeroTarjeta, String pin) {
 		super();
-		this.nombre = nombre;
+		this.nombreCompleto = nombreCompleto;
 		this.numeroCuenta = numeroCuenta;
 		this.numeroDocumento = numeroDocumento;
 		this.numeroTarjeta = numeroTarjeta;
@@ -22,26 +22,26 @@ public class Cliente implements Tarjeta {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return nombreCompleto;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
 	}
 
-	public long getNumeroCuenta() {
+	public String getNumeroCuenta() {
 		return numeroCuenta;
 	}
 
-	public void setNumeroCuenta(long numeroCuenta) {
+	public void setNumeroCuenta(String numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
 	}
 
-	public long getNumeroDocumento() {
+	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
 
-	public void setNumeroDocumento(long numeroDocumento) {
+	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
 
@@ -63,7 +63,7 @@ public class Cliente implements Tarjeta {
 
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + nombre + ", numeroCuenta=" + numeroCuenta + ", numeroDocumento=" + numeroDocumento
+		return "Cliente [nombre=" + nombreCompleto + ", numeroCuenta=" + numeroCuenta + ", numeroDocumento=" + numeroDocumento
 				+ ", numeroTarjeta=" + numeroTarjeta + ", pin=" + pin + "]";
 	}
 
