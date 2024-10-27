@@ -2,7 +2,6 @@ package co.edu.konradlorenz.view.gui;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +13,8 @@ public class KonradBank extends JFrame {
 	
 	JFrame konradBank = new JFrame();
 	
-	Color fondoPanel = Color.WHITE;//Fondo de todos los JPanel
-	Color fondoFrame = Color.WHITE;//Fondo del JFrame
+	Color fondoPanel = Color.LIGHT_GRAY;//Fondo de todos los JPanel
+	Color fondoFrame = Color.GRAY;//Fondo del JFrame
 	
 	//Constructor
 	public KonradBank(){
@@ -26,14 +25,23 @@ public class KonradBank extends JFrame {
 		konradBank.setLocationRelativeTo(null);//Centra la ventana
 		konradBank.setLayout(null);//Desactivar layout automático para usar setBounds()
 		konradBank.setResizable(false);//No permite modificar el tamaño de la ventana
-		konradBank.setBackground(Color.BLUE);//Color del Titulo de la ventana
+		konradBank.setBackground(Color.BLUE);//Color de la barra de la ventana
 		konradBank.getContentPane().setBackground(fondoFrame);
+		
+		JPanel bodyLogin = bodyLogin();
+		JPanel bodyMenuPrincipal;
+		JPanel bodyRetirar;
+		JPanel bodyDepositar;
+		JPanel bodyRecibo;
+
 		
 		konradBank.add(head());
 		konradBank.add(line());
-		konradBank.add(body());
+		konradBank.add(bodyLogin);
+		
+		//konradBank.remove(head);
 
-		konradBank.setVisible(true);
+		konradBank.setVisible(true);//"Recargar página" guiño guiño.
 		
 	}
 	//KonradBank
@@ -42,15 +50,15 @@ public class KonradBank extends JFrame {
 	public JPanel head() {
     	// - HEAD - //
         JPanel head = new JPanel();
-        head.setBounds(0, 0, 600, 100);
+        head.setBounds(0, 0, 600, 100); //x,y,ancho,altura
         head.setBackground(fondoPanel);
         head.setLayout(null);//Desactivar layout automático para usar setBounds()	   
 	        
 	        //Title
 	        JLabel title = new JLabel("KONRAD BANK");
-	        title.setFont(new Font("Arial", Font.BOLD, 40));
-	        title.setForeground(Color.BLACK);
-	        title.setBounds(150, 0, 450, 100);
+	        title.setFont(new Font("Arial", Font.BOLD, 40));//fuente, negrilla, tamaño
+	        title.setForeground(Color.BLACK);//color letra
+	        title.setBounds(150, 0, 450, 100);//x,y,ancho,altura
 	        //title.setOpaque(false);
 
 	        head.add(title);
@@ -72,43 +80,45 @@ public class KonradBank extends JFrame {
     }
     //*/line
 	
-	//Método para crear line
-	public JPanel body() {
+	//Método para crear bodyLogin
+	public JPanel bodyLogin() {
     	// - BODY - //
-        JPanel body = new JPanel();
-        body.setBounds(0, 150, 600, 450);
-        body.setBackground(fondoPanel);
-        body.setLayout(null);//Desactivar layout automático para usar setBounds()   
+        JPanel bodyLogin = new JPanel();
+        bodyLogin.setBounds(0, 150, 600, 450);
+        bodyLogin.setBackground(fondoPanel);
+        bodyLogin.setLayout(null);//Desactivar layout automático para usar setBounds()   
 	    
-        //Mensaje
-        JLabel msn = new JLabel("Bienvenido/a al cajero automático");
-        msn.setFont(new Font("Arial", Font.PLAIN, 20));
-        msn.setForeground(Color.BLACK);
-        msn.setBounds(150, 25, 450, 50);
-
-        body.add(msn);
-        
-
-
-        body.add(txtField(100, 115, 400, 50, "Ingrese número de tarjeta"));
-        body.add(pwdField(100, 215, 400, 50, "Ingrese su PIN"));
-        body.add(button(100, 315, 400, 50, "Ingresar"));
-        
-    	return body;
-    }
-    //*/body
+	        //Mensaje
+	        JLabel msn = new JLabel("Bienvenido/a al cajero automático");
+	        msn.setFont(new Font("Arial", Font.PLAIN, 20));
+	        msn.setForeground(Color.BLACK);
+	        msn.setBounds(150, 25, 450, 50);
 	
-	public JTextField txtField(int ox, int oy, int cx, int cy, String mensaje) {
+	        bodyLogin.add(msn);
+        
+
+
+        bodyLogin.add(txtField(100, 115, 400, 50, "Ingrese número de tarjeta"));
+        bodyLogin.add(pwdField(100, 215, 400, 50, "Ingrese su PIN"));
+        bodyLogin.add(button(100, 315, 400, 50, "Ingresar"));
+        
+    	return bodyLogin;
+    }
+    //*/bodyLogin
+	
+	//Método para crear txtField
+	public JTextField txtField(int cordX, int cordY, int ancho, int alto, String mensaje) {
         //txtNumeroTarjeta
         JTextField txtField = new JTextField(mensaje);
-        txtField.setFont(new Font("Arial", Font.ITALIC, 20));
+        txtField.setFont(new Font("Arial", Font.PLAIN, 20));
         txtField.setForeground(Color.GRAY);
-        txtField.setBounds(ox, oy, cx, cy);
+        txtField.setBounds(cordX, cordY, ancho, alto);
         Border border = BorderFactory.createLineBorder(Color.BLUE, 2); // Borde de línea azul de 2 píxeles
         txtField.setBorder(border);
 
         //Añadir FocusListener para gestionar el placeholder
         txtField.addFocusListener(new FocusListener() {
+        	
             @Override
             public void focusGained(FocusEvent e) {
                 if (txtField.getText().equals(mensaje)) {
@@ -130,13 +140,13 @@ public class KonradBank extends JFrame {
 	}
 	//*/txtField
 	
-	//Crear Campo Contraseña
-	public JPasswordField pwdField(int ox, int oy, int cx, int cy, String mensaje) {
+	//Método para crear pwdField
+	public JPasswordField pwdField(int cordX, int cordY, int ancho, int alto, String mensaje) {
         //txtNumeroTarjeta
         JPasswordField pwdField = new JPasswordField(mensaje);
         pwdField.setFont(new Font("Arial", Font.ITALIC, 20));
         pwdField.setForeground(Color.GRAY);
-        pwdField.setBounds(ox, oy, cx, cy);
+        pwdField.setBounds(cordX, cordY, ancho, alto);
         pwdField.setText(mensaje);
         pwdField.setEchoChar((char) 0);
         Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
@@ -167,18 +177,17 @@ public class KonradBank extends JFrame {
 	}
 	//*/pwdField
 	
-	//Crear botón
-	public JButton button(int ox, int oy, int cx, int cy, String mensaje) {
+	//Método para crear button
+	public JButton button(int cordX, int cordY, int ancho, int alto, String mensaje) {
         JButton button = new JButton(mensaje);
-        button.setBounds(ox, oy, cx, cy);
+        button.setBounds(cordX, cordY, ancho, alto);
         button.setBackground(Color.BLUE);
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.BOLD, 16));
-        button.setOpaque(true);
-        button.setContentAreaFilled(false);  // Evita que use el fondo predeterminado
-        button.setBorderPainted(false);
-        //Border border = BorderFactory.createLineBorder(Color.BLUE, 2); // Borde de línea azul de 2 píxeles
-        //button.setBorder(border);
+        button.setOpaque(true);//No transparente
+        //button.setBorderPainted(true);
+        Border border = BorderFactory.createLineBorder(Color.BLUE, 2); // Borde de línea azul de 2 píxeles
+        button.setBorder(border);
 
         button.addActionListener(new ActionListener() {
             @Override
