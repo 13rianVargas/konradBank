@@ -1,11 +1,15 @@
 package co.edu.konradlorenz.controller;
 
 import co.edu.konradlorenz.model.*;
-import co.edu.konradlorenz.view.Vista;
+import co.edu.konradlorenz.view.gui.KonradBank;
+
 
 public class Controlador {
 
     public void run() {
+    	@SuppressWarnings("unused")
+    	KonradBank konradBank = new KonradBank();
+    	
         
     	// Solicitar datos del cliente, 
     	//aca no se como se hace con el GUI pero supongo que solo sera cambiarlo xd
