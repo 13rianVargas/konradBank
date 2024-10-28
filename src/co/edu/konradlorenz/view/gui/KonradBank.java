@@ -26,6 +26,8 @@ public class KonradBank extends JFrame {
 	JTextField txtField;
 	JPasswordField pwdField;
 	JButton btnIngresar;
+	JButton btnCancelar;
+	JButton btnRetirar;
 	
 	Color fondoPanel = Color.LIGHT_GRAY;//Fondo de todos los JPanel
 	Color fondoFrame = Color.GRAY;//Fondo del JFrame
@@ -48,9 +50,10 @@ public class KonradBank extends JFrame {
 		invisiblePanel.setVisible(true);
 		
 		bodyLogin = bodyLogin();
+		bodyRetirar = bodyRetirar();
 		/*/ <- Quita solo el * entre las barras para descomentar el bloque
 		bodyMenuPrincipal = bodyMenuPrincipal();
-		bodyRetirar = bodyRetirar();
+		
 		bodyDepositar = bodyDepositar();
 		bodyRecibo = bodyRecibo();
 		//*/
@@ -232,5 +235,79 @@ public class KonradBank extends JFrame {
         return btnIngresar;
 	}
 	//*/btnIngresar
+	
+	//Método para crear bodyRetirar
+	public JPanel bodyRetirar() {
+		//-BODY-//
+		JPanel bodyRetirar = new JPanel();
+		bodyRetirar.setBounds(0, 150, 600, 450);
+		bodyRetirar.setBackground(fondoPanel);
+		bodyRetirar.setLayout(null);
+		
+				//Mensaje
+				JLabel msn = new JLabel("¿Qué cantidad desea retirar?");
+				msn.setFont(new Font("Arial", Font.PLAIN, 20));
+				msn.setForeground(Color.BLACK);
+				msn.setBounds(170, 75, 450, 50);
+				bodyRetirar.add(msn);
+				
+				bodyRetirar.add(txtField(100,150,400,50,"Ingrese cantidad a retirar"));
+				bodyRetirar.add(btnRetirar(100, 225, 400, 50, "Retirar"));
+				bodyRetirar.add(btnCancelar(100, 295, 400, 50, "Cancelar"));
+				
+		return bodyRetirar;
+	}
+	//*/bodyRetirar
+	
+	//Método para crear btnCancelar
+	public JButton btnCancelar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+		btnCancelar = new JButton(mensaje);
+		btnCancelar.setBounds(cordX, cordY, ancho, alto);
+		btnCancelar.setBackground(Color.RED);
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCancelar.setOpaque(true);
+		
+		Border border = BorderFactory.createLineBorder(Color.RED, 2);
+		btnCancelar.setBorder(border);
+		
+		btnIngresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Acción a realizar cuando se presiona el botón
+                
+                konradBank.remove(bodyRetirar);
+                konradBank.add(bodyMenuPrincipal);
+            }
+            });
+		return btnCancelar;
+	}
+	//*/btnCancelar
+	
+	//Método para crear btnRetirar
+	public JButton btnRetirar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+		btnRetirar = new JButton(mensaje);
+		btnRetirar.setBounds(cordX, cordY, ancho, alto);
+		btnRetirar.setBackground(Color.BLUE);
+		btnRetirar.setForeground(Color.WHITE);
+		btnRetirar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnRetirar.setOpaque(true);
+		
+		Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
+		btnRetirar.setBorder(border);
+		
+		btnRetirar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Acción a realizar cuando se presiona el botón
+                
+                konradBank.remove(bodyRetirar);
+                konradBank.add(bodyRecibo);
+            }
+            });
+		return btnRetirar;
+	}
+	//*/btnRetirar
+	
 }
 //class

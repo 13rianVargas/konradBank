@@ -155,6 +155,6 @@ public class Controlador {
     	return cliente;
     }
     //nuevoCliente
- 
+    
 }
 //class
