@@ -1,6 +1,6 @@
 package co.edu.konradlorenz.model;
 
-public class Cliente implements Tarjeta {
+public class Cliente {
 
 	private String nombreCompleto;
 	private String numeroCuenta;
@@ -65,31 +65,6 @@ public class Cliente implements Tarjeta {
 	public String toString() {
 		return "Cliente [nombre=" + nombreCompleto + ", numeroCuenta=" + numeroCuenta + ", numeroDocumento=" + numeroDocumento
 				+ ", numeroTarjeta=" + numeroTarjeta + ", pin=" + pin + "]";
-	}
-
-	@Override
-	public boolean esTarjetaValida() {
-		int suma = 0;
-		boolean alternar = false;
-
-		for (int i = numeroTarjeta.length() - 1; i >= 0; i--) {
-			int digito = Character.getNumericValue(numeroTarjeta.charAt(i));
-			if (alternar) {
-				digito *= 2;
-				if (digito > 9) {
-					digito -= 9;
-				}
-			}
-			suma += digito;
-			alternar = !alternar;
-		}
-		return suma % 10 == 0;
-	}
-
-	@Override
-	public boolean verificarPIN(String pin) {
-
-		return this.pin.equals(pin);
 	}
 
 }
