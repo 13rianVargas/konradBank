@@ -16,7 +16,8 @@ public class KonradBank extends JFrame {
 	
 	Controlador controlador = new Controlador();
 	
-	JFrame konradBank = new JFrame();
+	JFrame konradBank;
+	JPanel invisiblePanel;
 	JPanel bodyLogin;
 	JPanel bodyMenuPrincipal;
 	JPanel bodyRetirar;
@@ -29,9 +30,10 @@ public class KonradBank extends JFrame {
 	Color fondoPanel = Color.LIGHT_GRAY;//Fondo de todos los JPanel
 	Color fondoFrame = Color.GRAY;//Fondo del JFrame
 	
-	//Constructor
+	//Constructor del JFrame
 	public KonradBank(){
 		
+		konradBank = new JFrame();
 		konradBank.setDefaultCloseOperation(EXIT_ON_CLOSE);//Terminar la ejecución si se cierra la ventana
 		konradBank.setTitle("Konrad Bank");
 		konradBank.setSize(600,600);
@@ -41,6 +43,10 @@ public class KonradBank extends JFrame {
 		konradBank.setBackground(Color.BLUE);//Color de la barra de la ventana
 		konradBank.getContentPane().setBackground(fondoFrame);
 		
+		invisiblePanel = new JPanel();
+		invisiblePanel.setFocusable(true);
+		invisiblePanel.setVisible(true);
+		
 		bodyLogin = bodyLogin();
 		/*/ <- Quita solo el * entre las barras para descomentar el bloque
 		bodyMenuPrincipal = bodyMenuPrincipal();
@@ -49,6 +55,7 @@ public class KonradBank extends JFrame {
 		bodyRecibo = bodyRecibo();
 		//*/
 		
+		konradBank.add(invisiblePanel);//Este JPanel permite que el autofocus no sea el primer campo de texto.
 		konradBank.add(head());
 		konradBank.add(line());
 		konradBank.add(bodyLogin);
@@ -125,7 +132,7 @@ public class KonradBank extends JFrame {
         txtField.setFont(new Font("Arial", Font.PLAIN, 20));
         txtField.setForeground(Color.GRAY);
         txtField.setBounds(cordX, cordY, ancho, alto);
-        Border border = BorderFactory.createLineBorder(Color.BLUE, 2); // Borde de línea azul de 2 píxeles
+        Border border = BorderFactory.createLineBorder(Color.BLUE, 2); //Borde de línea azul de 2 píxeles
         txtField.setBorder(border);
 
         //Añadir FocusListener para gestionar el placeholder
@@ -219,7 +226,6 @@ public class KonradBank extends JFrame {
 					Border border = BorderFactory.createLineBorder(Color.RED, 2);
 					txtField.setBorder(border);
 					pwdField.setBorder(border);
-					//konradBank.setVisible(true);//Por si toca "recargar"
 				}
             }
         });
