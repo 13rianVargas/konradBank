@@ -2,6 +2,9 @@ package co.edu.konradlorenz.view.gui;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import co.edu.konradlorenz.controller.Controlador;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +14,17 @@ import java.awt.event.FocusListener;
 @SuppressWarnings("serial")
 public class KonradBank extends JFrame {
 	
+	Controlador controlador = new Controlador();
+	
 	JFrame konradBank = new JFrame();
+	JPanel bodyLogin;
+	JPanel bodyMenuPrincipal;
+	JPanel bodyRetirar;
+	JPanel bodyDepositar;
+	JPanel bodyRecibo;
+	JTextField txtField;
+	JPasswordField pwdField;
+	JButton btnIngresar;
 	
 	Color fondoPanel = Color.LIGHT_GRAY;//Fondo de todos los JPanel
 	Color fondoFrame = Color.GRAY;//Fondo del JFrame
@@ -28,18 +41,17 @@ public class KonradBank extends JFrame {
 		konradBank.setBackground(Color.BLUE);//Color de la barra de la ventana
 		konradBank.getContentPane().setBackground(fondoFrame);
 		
-		JPanel bodyLogin = bodyLogin();
-		JPanel bodyMenuPrincipal;
-		JPanel bodyRetirar;
-		JPanel bodyDepositar;
-		JPanel bodyRecibo;
-
+		bodyLogin = bodyLogin();
+		/*/ <- Quita solo el * entre las barras para descomentar el bloque
+		bodyMenuPrincipal = bodyMenuPrincipal();
+		bodyRetirar = bodyRetirar();
+		bodyDepositar = bodyDepositar();
+		bodyRecibo = bodyRecibo();
+		//*/
 		
 		konradBank.add(head());
 		konradBank.add(line());
 		konradBank.add(bodyLogin);
-		
-		//konradBank.remove(head);
 
 		konradBank.setVisible(true);//"Recargar página" guiño guiño.
 		
@@ -100,7 +112,7 @@ public class KonradBank extends JFrame {
 
         bodyLogin.add(txtField(100, 115, 400, 50, "Ingrese número de tarjeta"));
         bodyLogin.add(pwdField(100, 215, 400, 50, "Ingrese su PIN"));
-        bodyLogin.add(button(100, 315, 400, 50, "Ingresar"));
+        bodyLogin.add(btnIngresar(100, 315, 400, 50, "Ingresar"));
         
     	return bodyLogin;
     }
@@ -109,7 +121,7 @@ public class KonradBank extends JFrame {
 	//Método para crear txtField
 	public JTextField txtField(int cordX, int cordY, int ancho, int alto, String mensaje) {
         //txtNumeroTarjeta
-        JTextField txtField = new JTextField(mensaje);
+        txtField = new JTextField(mensaje);
         txtField.setFont(new Font("Arial", Font.PLAIN, 20));
         txtField.setForeground(Color.GRAY);
         txtField.setBounds(cordX, cordY, ancho, alto);
@@ -143,7 +155,7 @@ public class KonradBank extends JFrame {
 	//Método para crear pwdField
 	public JPasswordField pwdField(int cordX, int cordY, int ancho, int alto, String mensaje) {
         //txtNumeroTarjeta
-        JPasswordField pwdField = new JPasswordField(mensaje);
+        pwdField = new JPasswordField(mensaje);
         pwdField.setFont(new Font("Arial", Font.ITALIC, 20));
         pwdField.setForeground(Color.GRAY);
         pwdField.setBounds(cordX, cordY, ancho, alto);
@@ -177,29 +189,42 @@ public class KonradBank extends JFrame {
 	}
 	//*/pwdField
 	
-	//Método para crear button
-	public JButton button(int cordX, int cordY, int ancho, int alto, String mensaje) {
-        JButton button = new JButton(mensaje);
-        button.setBounds(cordX, cordY, ancho, alto);
-        button.setBackground(Color.BLUE);
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Arial", Font.BOLD, 16));
-        button.setOpaque(true);//No transparente
+	//Método para crear btnIngresar
+	public JButton btnIngresar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+		btnIngresar = new JButton(mensaje);
+		btnIngresar.setBounds(cordX, cordY, ancho, alto);
+		btnIngresar.setBackground(Color.BLUE);
+		btnIngresar.setForeground(Color.WHITE);
+		btnIngresar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnIngresar.setOpaque(true);//No transparente
         //button.setBorderPainted(true);
         Border border = BorderFactory.createLineBorder(Color.BLUE, 2); // Borde de línea azul de 2 píxeles
-        button.setBorder(border);
+        btnIngresar.setBorder(border);
 
-        button.addActionListener(new ActionListener() {
+        btnIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Acción a realizar cuando se presiona el botón
-                System.out.println("Intentando iniciar sesión...");
                 
-                //TODO: Verificar credenciales
+                String numeroTarjeta = txtField.getText();
+                String pin = new String(pwdField.getPassword());
+                
+				boolean validacion = controlador.validarCredenciales(numeroTarjeta, pin);
+				
+				if(validacion) {
+					konradBank.remove(bodyLogin);
+					konradBank.add(bodyMenuPrincipal);
+					//konradBank.setVisible(true);//Por si toca "recargar"
+				} else {
+					Border border = BorderFactory.createLineBorder(Color.RED, 2);
+					txtField.setBorder(border);
+					pwdField.setBorder(border);
+					//konradBank.setVisible(true);//Por si toca "recargar"
+				}
             }
         });
-        return button;
+        return btnIngresar;
 	}
-	//*/button
+	//*/btnIngresar
 }
 //class
