@@ -49,13 +49,14 @@ public class KonradBank extends JFrame {
 		invisiblePanel.setFocusable(true);
 		invisiblePanel.setVisible(true);
 		
+		Controlador objControlador = new Controlador();
 		bodyLogin = bodyLogin();
 		bodyRetirar = bodyRetirar();
-		/*/ <- Quita solo el * entre las barras para descomentar el bloque
+		// <- Quita solo el * entre las barras para descomentar el bloque
 		bodyMenuPrincipal = bodyMenuPrincipal();
 		
 		bodyDepositar = bodyDepositar();
-		bodyRecibo = bodyRecibo();
+		/*bodyRecibo = bodyRecibo();
 		//*/
 		
 		konradBank.add(invisiblePanel);//Este JPanel permite que el autofocus no sea el primer campo de texto.
@@ -131,7 +132,7 @@ public class KonradBank extends JFrame {
 	//Método para crear txtField
 	public JTextField txtField(int cordX, int cordY, int ancho, int alto, String mensaje) {
         //txtNumeroTarjeta
-        txtField = new JTextField(mensaje);
+		JTextField 	txtField = new JTextField(mensaje);
         txtField.setFont(new Font("Arial", Font.PLAIN, 20));
         txtField.setForeground(Color.GRAY);
         txtField.setBounds(cordX, cordY, ancho, alto);
@@ -309,5 +310,164 @@ public class KonradBank extends JFrame {
 	}
 	//*/btnRetirar
 	
+	
+	// Método para crear bodyDepositar
+	public JPanel bodyDepositar() {
+	    // - BODY - //
+	    JPanel bodyDepositar = new JPanel();
+	    bodyDepositar.setBounds(0, 150, 600, 450);
+	    bodyDepositar.setBackground(fondoPanel);
+	    bodyDepositar.setLayout(null);
+
+	    // Mensaje
+	    JLabel msn = new JLabel("¿Qué cantidad desea depositar?");
+	    msn.setFont(new Font("Arial", Font.PLAIN, 20));
+	    msn.setForeground(Color.BLACK);
+	    msn.setBounds(170, 75, 450, 50);
+	    bodyDepositar.add(msn);
+
+	    // Campo de texto para ingresar cantidad a depositar
+	    JTextField depositAmountField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
+	    bodyDepositar.add(depositAmountField);
+
+	    // Botón para confirmar depósito
+	    JButton btnDepositar = new JButton("Depositar");
+	    btnDepositar.setBounds(100, 225, 400, 50);
+	    btnDepositar.setBackground(Color.BLUE);
+	    btnDepositar.setForeground(Color.WHITE);
+	    btnDepositar.setFont(new Font("Arial", Font.BOLD, 16));
+	    btnDepositar.setOpaque(true);
+	    Border border = BorderFactory.createLineBorder(Color.BLUE, 2); // Borde de línea azul de 2 píxeles
+	    btnDepositar.setBorder(border);
+
+	    btnDepositar.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Acción para el botón de depósito
+	            String amount = depositAmountField.getText();
+	            
+	            // Validación básica del monto ingresado (puedes hacer más validaciones según necesites)
+	            if (amount.isEmpty()) {
+	                JOptionPane.showMessageDialog(bodyDepositar, "Ingrese una cantidad válida para depositar", "Error", JOptionPane.ERROR_MESSAGE);
+	            } else {
+	               //TODO controlador.depositar(amount);
+	                
+	                // Cambiar al panel de recibo después del depósito
+	                konradBank.remove(bodyDepositar);
+	                konradBank.add(bodyRecibo);
+	                konradBank.revalidate();
+	                konradBank.repaint();
+	            }
+	        }
+	    });
+	    bodyDepositar.add(btnDepositar);
+
+	    // Botón para cancelar
+	    JButton btnCancelarDeposito = new JButton("Cancelar");
+	    btnCancelarDeposito.setBounds(100, 295, 400, 50);
+	    btnCancelarDeposito.setBackground(Color.RED);
+	    btnCancelarDeposito.setForeground(Color.WHITE);
+	    btnCancelarDeposito.setFont(new Font("Arial", Font.BOLD, 16));
+	    btnCancelarDeposito.setOpaque(true);
+	    Border cancelBorder = BorderFactory.createLineBorder(Color.RED, 2);
+	    btnCancelarDeposito.setBorder(cancelBorder);
+
+	    btnCancelarDeposito.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Acción para cancelar depósito y regresar al menú principal
+	            konradBank.remove(bodyDepositar);
+	            konradBank.add(bodyMenuPrincipal);
+	            konradBank.revalidate();
+	            konradBank.repaint();
+	        }
+	    });
+	    bodyDepositar.add(btnCancelarDeposito);
+
+	    return bodyDepositar;
+	}//*/btnCancelar
+	
+	
+	
+	
+	// bodyMenuPrincipal
+	public JPanel bodyMenuPrincipal() {
+	    JPanel bodyMenuPrincipal = new JPanel();
+	    
+
+	    // Establecer el color de fondo
+	    bodyMenuPrincipal.setBackground(Color.CYAN); 
+
+	    // Etiqueta de bienvenida
+	    JLabel lblBienvenido = new JLabel("Bienvenido/a " + "A su banco de confianza");
+	    lblBienvenido.setFont(new Font("Arial", Font.BOLD, 24));
+	    lblBienvenido.setBounds(100, 50, 400, 30);
+	    bodyMenuPrincipal.add(lblBienvenido);
+
+	    // Etiqueta de pregunta
+	    JLabel lblPregunta = new JLabel("¿Qué desea hacer?");
+	    lblPregunta.setFont(new Font("Arial", Font.PLAIN, 18));
+	    lblPregunta.setBounds(150, 100, 200, 30);
+	    bodyMenuPrincipal.add(lblPregunta);
+
+	    // Botón de retirar
+	    JButton btnRetirar = new JButton("Retirar");
+	    btnRetirar.setBounds(150, 150, 200, 50);
+	    btnRetirar.setBackground(Color.BLUE);
+	    btnRetirar.setForeground(Color.WHITE);
+	    btnRetirar.setFont(new Font("Arial", Font.BOLD, 18));
+	    btnRetirar.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Lógica para llevar a bodyRetirar
+	            konradBank.remove(bodyMenuPrincipal);
+	            konradBank.add(bodyRetirar()); // Método para crear bodyRetirar
+	            konradBank.revalidate();
+	            konradBank.repaint();
+	        }
+	    });
+	    bodyMenuPrincipal.add(btnRetirar);
+
+	    // Botón de depositar
+	    JButton btnDepositar = new JButton("Depositar");
+	    btnDepositar.setBounds(150, 220, 200, 50);
+	    btnDepositar.setBackground(Color.BLUE);
+	    btnDepositar.setForeground(Color.WHITE);
+	    btnDepositar.setFont(new Font("Arial", Font.BOLD, 18));
+	    btnDepositar.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Lógica para llevar a bodyDepositar
+	            konradBank.remove(bodyMenuPrincipal);
+	            konradBank.add(bodyDepositar()); // Método para crear bodyDepositar
+	            konradBank.revalidate();
+	            konradBank.repaint();
+	        }
+	    });
+	    bodyMenuPrincipal.add(btnDepositar);
+
+	    // Botón de cancelar
+	    JButton btnCancelar = new JButton("Cancelar");
+	    btnCancelar.setBounds(150, 290, 200, 50);
+	    btnCancelar.setBackground(Color.RED);
+	    btnCancelar.setForeground(Color.WHITE);
+	    btnCancelar.setFont(new Font("Arial", Font.BOLD, 18));
+	    btnCancelar.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Lógica para volver al inicio
+	            konradBank.remove(bodyMenuPrincipal);
+	            konradBank.add(bodyLogin()); // Método para crear bodyLogin
+	            konradBank.revalidate();
+	            konradBank.repaint();
+	        }
+	    });
+	    bodyMenuPrincipal.add(btnCancelar);
+
+	    return bodyMenuPrincipal;
+	}
+
+	
+
 }
 //class
