@@ -118,6 +118,13 @@ public class Controlador {
     	return cliente;
     }
     //nuevoCliente    
-    
+    public String obtenerNombrePorNumeroTarjeta(String numeroTarjeta) {
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getNumeroTarjeta().equals(numeroTarjeta)) {
+                return cliente.getNombre(); 
+            }
+        }
+        return null; 
+    }
 }
 //class

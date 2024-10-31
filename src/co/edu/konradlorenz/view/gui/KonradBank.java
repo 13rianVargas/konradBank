@@ -115,28 +115,36 @@ public class KonradBank extends JFrame {
 	public JPanel bodyMenuPrincipal() {
 		
 		bodyMenuPrincipal = new JPanel();
-	    bodyMenuPrincipal.setBounds(0, 150, 600, 450);//x,y,ancho,altura
-	    bodyMenuPrincipal.setBackground(Color.CYAN); 
+	    bodyMenuPrincipal.setBounds(0, 150, 600, 600);//x,y,ancho,altura
+	    bodyMenuPrincipal.setBackground(Color.white); 
 
-		    JLabel lblBienvenido = new JLabel("Bienvenido/a " + "A su banco de confianza");
+		    JLabel lblBienvenido = new JLabel("Bienvenido/a. ");
 		    lblBienvenido.setFont(new Font("Arial", Font.BOLD, 24));
-		    lblBienvenido.setBounds(100, 50, 400, 30);
+		    lblBienvenido.setBounds(220, 20, 600, 30);
 		    bodyMenuPrincipal.add(lblBienvenido);
-	
+		    
+		    JLabel lblBienvenido2 = new JLabel("el banco #1 de los estudiantes de la konrad");
+		    lblBienvenido2.setFont(new Font("Arial", Font.ITALIC, 24));
+		    lblBienvenido2.setBounds(55, 55, 600, 30);
+		    bodyMenuPrincipal.add(lblBienvenido2);
+		    
+		    
 		    JLabel lblPregunta = new JLabel("¿Qué desea hacer?");
 		    lblPregunta.setFont(new Font("Arial", Font.PLAIN, 18));
-		    lblPregunta.setBounds(150, 100, 200, 30);
+		    lblPregunta.setBounds(220, 100, 200, 30);
 		    bodyMenuPrincipal.add(lblPregunta);
 
-
-	    btnMenuRetirar = btnRetirar(150, 150, 200, 50, "Retirar");
+		    bodyMenuPrincipal.setLayout(null);
+	    btnMenuRetirar = btnRetirar(200, 220, 200, 50, "Retirar");
 	    bodyMenuPrincipal.add(btnMenuRetirar);
 	    
-	    btnMenuDepositar = btnDepositar(150, 220, 200, 50, "Depositar");
+	    btnMenuDepositar = btnDepositar(200, 150, 200, 50, "Depositar");
 	    bodyMenuPrincipal.add(btnMenuDepositar);
 	    
-	    btnCancelar = btnCancelar(150, 290, 200, 50, "Cancelar");
+	    btnCancelar = btnCancelar(200, 290, 200, 50, "Cancelar");
 	    bodyMenuPrincipal.add(btnCancelar);
+	    
+	    
 	    
 
 
@@ -365,6 +373,8 @@ public class KonradBank extends JFrame {
 		Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
 		btnMenuRetirar.setBorder(border);
 		
+		bodyRetirar.revalidate();
+		bodyRetirar.repaint();
 		btnMenuRetirar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
