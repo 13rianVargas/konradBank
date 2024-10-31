@@ -16,26 +16,46 @@ public class KonradBank extends JFrame {
 	
 	Controlador controlador = new Controlador();
 	
-	JFrame konradBank;
-	JPanel invisiblePanel;
+	//Ventanas
+	JFrame konradBank = new JFrame();
+	
+	//Paneles
+	JPanel invisiblePanel = new JPanel(); //Este JPanel permite que el autofocus no sea el primer campo de texto.
 	JPanel bodyLogin;
 	JPanel bodyMenuPrincipal;
-	JPanel bodyRetirar;
 	JPanel bodyDepositar;
+	JPanel bodyRetirar;
 	JPanel bodyRecibo;
+	
+	//Decorativos
+	JPanel head = head();
+	JPanel line = line();
+	
+	//Campos de texto
 	JTextField txtField;
 	JPasswordField pwdField;
-	JButton btnIngresar;
-	JButton btnCancelar;
-	JButton btnRetirar;
 	
-	Color fondoPanel = Color.LIGHT_GRAY;//Fondo de todos los JPanel
-	Color fondoFrame = Color.GRAY;//Fondo del JFrame
+	//Botones
+	JButton btnIngresar;
+	JButton btnMenuRetirar;
+	JButton btnMenuDepositar;
+	JButton btnRetirar;
+	JButton btnDepositar;
+	JButton btnCancelar;
+	
+	//Colores
+	Color fondoPanel = Color.WHITE;//Fondo de todos los JPanel
+	Color fondoFrame = Color.WHITE;//Fondo del JFrame
+	
+	  // -- // -- // -- // -- // -- // -- //
+	 // -- // -- // VENTANAS // -- // -- //
+	// -- // -- // -- // -- // -- // -- //
 	
 	//Constructor del JFrame
 	public KonradBank(){
-		
-		konradBank = new JFrame();
+
+		controlador.datosDePrueba();
+	
 		konradBank.setDefaultCloseOperation(EXIT_ON_CLOSE);//Terminar la ejecución si se cierra la ventana
 		konradBank.setTitle("Konrad Bank");
 		konradBank.setSize(600,600);
@@ -45,35 +65,149 @@ public class KonradBank extends JFrame {
 		konradBank.setBackground(Color.BLUE);//Color de la barra de la ventana
 		konradBank.getContentPane().setBackground(fondoFrame);
 		
-		invisiblePanel = new JPanel();
+		
 		invisiblePanel.setFocusable(true);
 		invisiblePanel.setVisible(true);
 		
-		Controlador objControlador = new Controlador();
 		bodyLogin = bodyLogin();
-		bodyRetirar = bodyRetirar();
-		// <- Quita solo el * entre las barras para descomentar el bloque
-		bodyMenuPrincipal = bodyMenuPrincipal();
 		
-		bodyDepositar = bodyDepositar();
-		/*bodyRecibo = bodyRecibo();
-		//*/
-		
-		konradBank.add(invisiblePanel);//Este JPanel permite que el autofocus no sea el primer campo de texto.
-		konradBank.add(head());
-		konradBank.add(line());
+		konradBank.add(invisiblePanel);//Autofocus.
+		konradBank.add(head);
+		konradBank.add(line);
 		konradBank.add(bodyLogin);
 
-		konradBank.setVisible(true);//"Recargar página" guiño guiño.
+		konradBank.setVisible(true);//"Cargar página" guiño guiño.
 		
 	}
 	//KonradBank
+	
+	  // -- // -- // -- // -- // -- // -- //
+	 // -- // -- // PANELES  // -- // -- //
+	// -- // -- // -- // -- // -- // -- //
+	
+	//Método para crear bodyLogin
+	public JPanel bodyLogin() {
+		// - BODY - //
+		bodyLogin = new JPanel();
+		bodyLogin.setBounds(0, 150, 600, 450);//x,y,ancho,altura
+		bodyLogin.setBackground(fondoPanel);
+		bodyLogin.setLayout(null);//Desactivar layout automático para usar setBounds()   
+		
+		//Mensaje
+		JLabel msn = new JLabel("Bienvenido/a al cajero automático");
+		msn.setFont(new Font("Arial", Font.PLAIN, 20));
+		msn.setForeground(Color.BLACK);
+		msn.setBounds(150, 25, 450, 50);//x,y,ancho,altura
+		
+		bodyLogin.add(msn);
+		
+		
+		
+		bodyLogin.add(txtField(100, 115, 400, 50, "Ingrese número de tarjeta"));
+		bodyLogin.add(pwdField(100, 215, 400, 50, "Ingrese su PIN"));
+		bodyLogin.add(btnIngresar(100, 315, 400, 50, "Ingresar"));
+		
+		return bodyLogin;
+	}
+	//*/bodyLogin
+	
+	// Método para crear bodyMenuPrincipal
+	public JPanel bodyMenuPrincipal() {
+		
+		bodyMenuPrincipal = new JPanel();
+	    bodyMenuPrincipal.setBounds(0, 150, 600, 450);//x,y,ancho,altura
+	    bodyMenuPrincipal.setBackground(Color.CYAN); 
+
+		    JLabel lblBienvenido = new JLabel("Bienvenido/a " + "A su banco de confianza");
+		    lblBienvenido.setFont(new Font("Arial", Font.BOLD, 24));
+		    lblBienvenido.setBounds(100, 50, 400, 30);
+		    bodyMenuPrincipal.add(lblBienvenido);
+	
+		    JLabel lblPregunta = new JLabel("¿Qué desea hacer?");
+		    lblPregunta.setFont(new Font("Arial", Font.PLAIN, 18));
+		    lblPregunta.setBounds(150, 100, 200, 30);
+		    bodyMenuPrincipal.add(lblPregunta);
+
+
+	    btnMenuRetirar = btnRetirar(150, 150, 200, 50, "Retirar");
+	    bodyMenuPrincipal.add(btnMenuRetirar);
+	    
+	    btnMenuDepositar = btnDepositar(150, 220, 200, 50, "Depositar");
+	    bodyMenuPrincipal.add(btnMenuDepositar);
+	    
+	    btnCancelar = btnCancelar(150, 290, 200, 50, "Cancelar");
+	    bodyMenuPrincipal.add(btnCancelar);
+	    
+
+
+ // Método para crear bodyLogin
+
+
+	    return bodyMenuPrincipal;
+	}
+	//*///bodyMenuPrincipal
+	
+	// Método para crear bodyDepositar
+	public JPanel bodyDepositar() {
+		
+	    // - BODY - //
+		JPanel bodyDepositar = new JPanel();
+		
+	    bodyDepositar.setBounds(0, 150, 600, 450);
+	    bodyDepositar.setBackground(fondoPanel);
+	    bodyDepositar.setLayout(null);
+
+	    JLabel msn = new JLabel("¿Qué cantidad desea depositar?");
+	    msn.setFont(new Font("Arial", Font.PLAIN, 20));
+	    msn.setForeground(Color.BLACK);
+	    msn.setBounds(170, 75, 450, 50);
+	    bodyDepositar.add(msn);
+
+	    txtField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
+	    bodyDepositar.add(txtField);
+	    
+	    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
+	    bodyDepositar.add(btnCancelar);
+	    
+	    btnDepositar = btnDepositar(100, 225, 400, 50, "Depositar");
+	    bodyDepositar.add(btnDepositar);
+
+	    return bodyDepositar;
+	}
+	//*///bodyDepositar
+	
+	//Método para crear bodyRetirar
+	public JPanel bodyRetirar() {
+		//-BODY-//
+		JPanel bodyRetirar = new JPanel();
+		bodyRetirar.setBounds(0, 150, 600, 450);
+		bodyRetirar.setBackground(fondoPanel);
+		bodyRetirar.setLayout(null);
+		
+				//Mensaje
+				JLabel msn = new JLabel("¿Qué cantidad desea retirar?");
+				msn.setFont(new Font("Arial", Font.PLAIN, 20));
+				msn.setForeground(Color.BLACK);
+				msn.setBounds(170, 75, 450, 50);
+				bodyRetirar.add(msn);
+				
+				bodyRetirar.add(txtField(100,150,400,50,"Ingrese cantidad a retirar"));
+				bodyRetirar.add(btnRetirar(100, 225, 400, 50, "Retirar"));
+				bodyRetirar.add(btnCancelar(100, 295, 400, 50, "Cancelar"));
+				
+		return bodyRetirar;
+	}
+	//*///bodyRetirar
+	
+	  // -- // -- // -- // -- // -- // -- //
+	 // -- // -- // DECORATIVOS -- // -- //
+	// -- // -- // -- // -- // -- // -- //
 	
 	//Método para crear head
 	public JPanel head() {
     	// - HEAD - //
         JPanel head = new JPanel();
-        head.setBounds(0, 0, 600, 100); //x,y,ancho,altura
+        head.setBounds(0, 0, 600, 100);//x,y,ancho,altura
         head.setBackground(fondoPanel);
         head.setLayout(null);//Desactivar layout automático para usar setBounds()	   
 	        
@@ -85,7 +219,6 @@ public class KonradBank extends JFrame {
 	        //title.setOpaque(false);
 
 	        head.add(title);
-	        
 	        
     	return head;
     }
@@ -103,45 +236,22 @@ public class KonradBank extends JFrame {
     }
     //*/line
 	
-	//Método para crear bodyLogin
-	public JPanel bodyLogin() {
-    	// - BODY - //
-        JPanel bodyLogin = new JPanel();
-        bodyLogin.setBounds(0, 150, 600, 450);
-        bodyLogin.setBackground(fondoPanel);
-        bodyLogin.setLayout(null);//Desactivar layout automático para usar setBounds()   
-	    
-	        //Mensaje
-	        JLabel msn = new JLabel("Bienvenido/a al cajero automático");
-	        msn.setFont(new Font("Arial", Font.PLAIN, 20));
-	        msn.setForeground(Color.BLACK);
-	        msn.setBounds(150, 25, 450, 50);
-	
-	        bodyLogin.add(msn);
-        
-
-
-        bodyLogin.add(txtField(100, 115, 400, 50, "Ingrese número de tarjeta"));
-        bodyLogin.add(pwdField(100, 215, 400, 50, "Ingrese su PIN"));
-        bodyLogin.add(btnIngresar(100, 315, 400, 50, "Ingresar"));
-        
-    	return bodyLogin;
-    }
-    //*/bodyLogin
+	  // -- // -- // -- // -- // -- // -- //
+	 // -- // -- CAMPOS DE TEXTO - // -- //
+	// -- // -- // -- // -- // -- // -- //
 	
 	//Método para crear txtField
 	public JTextField txtField(int cordX, int cordY, int ancho, int alto, String mensaje) {
-        //txtNumeroTarjeta
-		JTextField 	txtField = new JTextField(mensaje);
+        
+		txtField = new JTextField(mensaje);
         txtField.setFont(new Font("Arial", Font.PLAIN, 20));
         txtField.setForeground(Color.GRAY);
-        txtField.setBounds(cordX, cordY, ancho, alto);
+        txtField.setBounds(cordX, cordY, ancho, alto);//x,y,ancho,altura
         Border border = BorderFactory.createLineBorder(Color.BLUE, 2); //Borde de línea azul de 2 píxeles
         txtField.setBorder(border);
 
         //Añadir FocusListener para gestionar el placeholder
         txtField.addFocusListener(new FocusListener() {
-        	
             @Override
             public void focusGained(FocusEvent e) {
                 if (txtField.getText().equals(mensaje)) {
@@ -165,11 +275,11 @@ public class KonradBank extends JFrame {
 	
 	//Método para crear pwdField
 	public JPasswordField pwdField(int cordX, int cordY, int ancho, int alto, String mensaje) {
-        //txtNumeroTarjeta
+		
         pwdField = new JPasswordField(mensaje);
         pwdField.setFont(new Font("Arial", Font.ITALIC, 20));
         pwdField.setForeground(Color.GRAY);
-        pwdField.setBounds(cordX, cordY, ancho, alto);
+        pwdField.setBounds(cordX, cordY, ancho, alto);//x,y,ancho,altura
         pwdField.setText(mensaje);
         pwdField.setEchoChar((char) 0);
         Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
@@ -182,7 +292,7 @@ public class KonradBank extends JFrame {
                 if (new String(pwdField.getPassword()).equals(mensaje)) {
                 	pwdField.setText("");
                 	pwdField.setForeground(Color.BLACK);
-                	pwdField.setEchoChar('•');//Muestra puntos
+                	pwdField.setEchoChar('•');//Mostrar puntos
                 }
             }
 
@@ -199,6 +309,10 @@ public class KonradBank extends JFrame {
         return pwdField;
 	}
 	//*/pwdField
+	
+	  // -- // -- // -- // -- // -- // -- //
+	 // -- // -- // BOTONES  // -- // -- //
+	// -- // -- // -- // -- // -- // -- //
 	
 	//Método para crear btnIngresar
 	public JButton btnIngresar(int cordX, int cordY, int ancho, int alto, String mensaje) {
@@ -224,8 +338,10 @@ public class KonradBank extends JFrame {
 				
 				if(validacion) {
 					konradBank.remove(bodyLogin);
-					konradBank.add(bodyMenuPrincipal);
-					//konradBank.setVisible(true);//Por si toca "recargar"
+					konradBank.add(bodyMenuPrincipal());
+					//"Recargar"
+					konradBank.revalidate();
+					konradBank.repaint();
 				} else {
 					Border border = BorderFactory.createLineBorder(Color.RED, 2);
 					txtField.setBorder(border);
@@ -235,55 +351,61 @@ public class KonradBank extends JFrame {
         });
         return btnIngresar;
 	}
-	//*/btnIngresar
+	//*///btnIngresar
 	
-	//Método para crear bodyRetirar
-	public JPanel bodyRetirar() {
-		//-BODY-//
-		JPanel bodyRetirar = new JPanel();
-		bodyRetirar.setBounds(0, 150, 600, 450);
-		bodyRetirar.setBackground(fondoPanel);
-		bodyRetirar.setLayout(null);
+	//Método para crear btnMenuRetirar
+	public JButton btnMenuRetirar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+		btnMenuRetirar = new JButton(mensaje);
+		btnMenuRetirar.setBounds(cordX, cordY, ancho, alto);
+		btnMenuRetirar.setBackground(Color.BLUE);
+		btnMenuRetirar.setForeground(Color.WHITE);
+		btnMenuRetirar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnMenuRetirar.setOpaque(true);
 		
-				//Mensaje
-				JLabel msn = new JLabel("¿Qué cantidad desea retirar?");
-				msn.setFont(new Font("Arial", Font.PLAIN, 20));
-				msn.setForeground(Color.BLACK);
-				msn.setBounds(170, 75, 450, 50);
-				bodyRetirar.add(msn);
-				
-				bodyRetirar.add(txtField(100,150,400,50,"Ingrese cantidad a retirar"));
-				bodyRetirar.add(btnRetirar(100, 225, 400, 50, "Retirar"));
-				bodyRetirar.add(btnCancelar(100, 295, 400, 50, "Cancelar"));
-				
-		return bodyRetirar;
-	}
-	//*/bodyRetirar
-	
-	//Método para crear btnCancelar
-	public JButton btnCancelar(int cordX, int cordY, int ancho, int alto, String mensaje) {
-		btnCancelar = new JButton(mensaje);
-		btnCancelar.setBounds(cordX, cordY, ancho, alto);
-		btnCancelar.setBackground(Color.RED);
-		btnCancelar.setForeground(Color.WHITE);
-		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
-		btnCancelar.setOpaque(true);
+		Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
+		btnMenuRetirar.setBorder(border);
 		
-		Border border = BorderFactory.createLineBorder(Color.RED, 2);
-		btnCancelar.setBorder(border);
-		
-		btnIngresar.addActionListener(new ActionListener() {
+		btnMenuRetirar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Acción a realizar cuando se presiona el botón
-                
-                konradBank.remove(bodyRetirar);
-                konradBank.add(bodyMenuPrincipal);
+            	konradBank.remove(bodyMenuPrincipal);
+	            konradBank.add(bodyRetirar());
             }
             });
-		return btnCancelar;
+		return btnMenuRetirar;
 	}
-	//*/btnCancelar
+	//*///btnMenuRetirar
+	
+	//Método para crear btnMenuDepositar
+	//*///btnMenuRetirar
+	
+	//Método para crear btnMenuDepositar
+	public JButton btnMenuDepositar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+		btnMenuDepositar = new JButton(mensaje);
+		btnMenuDepositar.setBounds(cordX, cordY, ancho, alto);
+		btnMenuDepositar.setBackground(Color.BLUE);
+		btnMenuDepositar.setForeground(Color.WHITE);
+		btnMenuDepositar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnMenuDepositar.setOpaque(true);
+		
+		Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
+		btnMenuDepositar.setBorder(border);
+		
+		btnMenuDepositar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Acción a realizar cuando se presiona el botón
+            	konradBank.remove(bodyMenuPrincipal);
+	            konradBank.add(bodyDepositar());
+            }
+            });
+		return btnMenuDepositar;
+	}
+	//*///btnMenuDepositar
+	
+	//Método para crear btnRetirar
+	//*///btnMenuDepositar
 	
 	//Método para crear btnRetirar
 	public JButton btnRetirar(int cordX, int cordY, int ancho, int alto, String mensaje) {
@@ -303,36 +425,20 @@ public class KonradBank extends JFrame {
                 // Acción a realizar cuando se presiona el botón
                 
                 konradBank.remove(bodyRetirar);
-                konradBank.add(bodyRecibo);
+                //konradBank.add(bodyRecibo);//TODO: Descomentar cuando esté listo el método.
             }
             });
 		return btnRetirar;
 	}
-	//*/btnRetirar
+	//*///btnRetirar
 	
-	
-	// Método para crear bodyDepositar
-	public JPanel bodyDepositar() {
-	    // - BODY - //
-	    JPanel bodyDepositar = new JPanel();
-	    bodyDepositar.setBounds(0, 150, 600, 450);
-	    bodyDepositar.setBackground(fondoPanel);
-	    bodyDepositar.setLayout(null);
+	//Método para crear btnDepositar
+	//*///btnRetirar
 
-	    // Mensaje
-	    JLabel msn = new JLabel("¿Qué cantidad desea depositar?");
-	    msn.setFont(new Font("Arial", Font.PLAIN, 20));
-	    msn.setForeground(Color.BLACK);
-	    msn.setBounds(170, 75, 450, 50);
-	    bodyDepositar.add(msn);
-
-	    // Campo de texto para ingresar cantidad a depositar
-	    JTextField depositAmountField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
-	    bodyDepositar.add(depositAmountField);
-
-	    // Botón para confirmar depósito
-	    JButton btnDepositar = new JButton("Depositar");
-	    btnDepositar.setBounds(100, 225, 400, 50);
+	//Método para crear btnDepositar
+	public JButton btnDepositar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+		btnDepositar = new JButton(mensaje);
+		btnDepositar.setBounds(cordX, cordY, ancho, alto);
 	    btnDepositar.setBackground(Color.BLUE);
 	    btnDepositar.setForeground(Color.WHITE);
 	    btnDepositar.setFont(new Font("Arial", Font.BOLD, 16));
@@ -344,7 +450,7 @@ public class KonradBank extends JFrame {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            // Acción para el botón de depósito
-	            String amount = depositAmountField.getText();
+	            String amount = txtField.getText();
 	            
 	            // Validación básica del monto ingresado (puedes hacer más validaciones según necesites)
 	            if (amount.isEmpty()) {
@@ -354,120 +460,45 @@ public class KonradBank extends JFrame {
 	                
 	                // Cambiar al panel de recibo después del depósito
 	                konradBank.remove(bodyDepositar);
-	                konradBank.add(bodyRecibo);
-	                konradBank.revalidate();
-	                konradBank.repaint();
+	                //konradBank.add(bodyRecibo); //TODO: Descomentar cuando esté listo el método.
+	                //konradBank.revalidate();
+	                //konradBank.repaint();
 	            }
 	        }
 	    });
-	    bodyDepositar.add(btnDepositar);
-
-	    // Botón para cancelar
-	    JButton btnCancelarDeposito = new JButton("Cancelar");
-	    btnCancelarDeposito.setBounds(100, 295, 400, 50);
-	    btnCancelarDeposito.setBackground(Color.RED);
-	    btnCancelarDeposito.setForeground(Color.WHITE);
-	    btnCancelarDeposito.setFont(new Font("Arial", Font.BOLD, 16));
-	    btnCancelarDeposito.setOpaque(true);
-	    Border cancelBorder = BorderFactory.createLineBorder(Color.RED, 2);
-	    btnCancelarDeposito.setBorder(cancelBorder);
-
-	    btnCancelarDeposito.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // Acción para cancelar depósito y regresar al menú principal
-	            konradBank.remove(bodyDepositar);
-	            konradBank.add(bodyMenuPrincipal);
-	            konradBank.revalidate();
-	            konradBank.repaint();
-	        }
-	    });
-	    bodyDepositar.add(btnCancelarDeposito);
-
-	    return bodyDepositar;
-	}//*/btnCancelar
-	
-	
-	
-	
-	// bodyMenuPrincipal
-	public JPanel bodyMenuPrincipal() {
-	    JPanel bodyMenuPrincipal = new JPanel();
-	    
-
-	    // Establecer el color de fondo
-	    bodyMenuPrincipal.setBackground(Color.CYAN); 
-
-	    // Etiqueta de bienvenida
-	    JLabel lblBienvenido = new JLabel("Bienvenido/a " + "A su banco de confianza");
-	    lblBienvenido.setFont(new Font("Arial", Font.BOLD, 24));
-	    lblBienvenido.setBounds(100, 50, 400, 30);
-	    bodyMenuPrincipal.add(lblBienvenido);
-
-	    // Etiqueta de pregunta
-	    JLabel lblPregunta = new JLabel("¿Qué desea hacer?");
-	    lblPregunta.setFont(new Font("Arial", Font.PLAIN, 18));
-	    lblPregunta.setBounds(150, 100, 200, 30);
-	    bodyMenuPrincipal.add(lblPregunta);
-
-	    // Botón de retirar
-	    JButton btnRetirar = new JButton("Retirar");
-	    btnRetirar.setBounds(150, 150, 200, 50);
-	    btnRetirar.setBackground(Color.BLUE);
-	    btnRetirar.setForeground(Color.WHITE);
-	    btnRetirar.setFont(new Font("Arial", Font.BOLD, 18));
-	    btnRetirar.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // Lógica para llevar a bodyRetirar
-	            konradBank.remove(bodyMenuPrincipal);
-	            konradBank.add(bodyRetirar()); // Método para crear bodyRetirar
-	            konradBank.revalidate();
-	            konradBank.repaint();
-	        }
-	    });
-	    bodyMenuPrincipal.add(btnRetirar);
-
-	    // Botón de depositar
-	    JButton btnDepositar = new JButton("Depositar");
-	    btnDepositar.setBounds(150, 220, 200, 50);
-	    btnDepositar.setBackground(Color.BLUE);
-	    btnDepositar.setForeground(Color.WHITE);
-	    btnDepositar.setFont(new Font("Arial", Font.BOLD, 18));
-	    btnDepositar.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // Lógica para llevar a bodyDepositar
-	            konradBank.remove(bodyMenuPrincipal);
-	            konradBank.add(bodyDepositar()); // Método para crear bodyDepositar
-	            konradBank.revalidate();
-	            konradBank.repaint();
-	        }
-	    });
-	    bodyMenuPrincipal.add(btnDepositar);
-
-	    // Botón de cancelar
-	    JButton btnCancelar = new JButton("Cancelar");
-	    btnCancelar.setBounds(150, 290, 200, 50);
-	    btnCancelar.setBackground(Color.RED);
-	    btnCancelar.setForeground(Color.WHITE);
-	    btnCancelar.setFont(new Font("Arial", Font.BOLD, 18));
-	    btnCancelar.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // Lógica para volver al inicio
-	            konradBank.remove(bodyMenuPrincipal);
-	            konradBank.add(bodyLogin()); // Método para crear bodyLogin
-	            konradBank.revalidate();
-	            konradBank.repaint();
-	        }
-	    });
-	    bodyMenuPrincipal.add(btnCancelar);
-
-	    return bodyMenuPrincipal;
+		return btnDepositar;
 	}
-
+	//*///btnDepositar
 	
+	//Método para crear btnCancelar
+	//*///btnDepositar
 
+	//Método para crear btnCancelar
+	public JButton btnCancelar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+		btnCancelar = new JButton(mensaje);
+		btnCancelar.setBounds(cordX, cordY, ancho, alto);
+		btnCancelar.setBackground(Color.RED);
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCancelar.setOpaque(true);
+		
+		Border border = BorderFactory.createLineBorder(Color.RED, 2);
+		btnCancelar.setBorder(border);
+		
+		btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Acción a realizar cuando se presiona el botón
+                
+            	konradBank.remove(bodyDepositar);
+            	konradBank.remove(bodyRetirar);
+	            konradBank.add(bodyMenuPrincipal());
+                
+            }
+            });
+		return btnCancelar;
+	}
+	//*///btnCancelar
+	
 }
 //class

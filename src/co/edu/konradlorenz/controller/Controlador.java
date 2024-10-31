@@ -1,6 +1,6 @@
 package co.edu.konradlorenz.controller;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import co.edu.konradlorenz.model.*;
 import co.edu.konradlorenz.view.gui.KonradBank;
@@ -8,50 +8,12 @@ import co.edu.konradlorenz.view.gui.KonradBank;
 
 public class Controlador {
 	
-	LinkedList <Cliente> listaClientes = new LinkedList<>();	
+	LinkedList<Cliente> listaClientes = new LinkedList<>();	
 
     public void run() {
     	@SuppressWarnings("unused")
     	KonradBank konradBank = new KonradBank();
 
-        datosDePrueba();
-        
-    /*/ Verificar si la tarjeta es válida
-        if (cliente.esTarjetaValida()) {
-            //vista.mostrarMensaje("Tarjeta válida, Que operacion desea hacer.");
-        } else {
-            //vista.mostrarMensaje("Tarjeta inválida.");
-            return;
-        }
-        //if
-    	
-        boolean salir = false;
-        while (!salir) {
-            int opcion = 0;
-            //= vista.mostrarMenu(); //aca supongamos que es lo del gui pues para retirar o hacer deposito
-
-            switch (opcion) {
-                case 1: // Depositar dinero
-                    //double montoDeposito = vista.solicitarMonto();
-                    //cuenta.depositar(montoDeposito);
-                    //vista.mostrarMensaje("Depósito realizado. Saldo actual: " + Cuenta.getSaldo());
-                    break;
-                case 2: // Retirar dinero
-                    //double montoRetiro = vista.solicitarMonto();
-                    //Cuenta.retirar(montoRetiro);
-                    //vista.mostrarMensaje("Retiro realizado. Saldo actual: " + Cuenta.getSaldo());
-                    break;
-                case 0: // Salir
-                    salir = true;
-                  //lo dejare aca como un mensaje de salida y el resumen de la transacion obvio toca en el gui xd
-                    //vista.mostrarMensaje("Gracias por preferirnos -KonradBank-."); 
-                    //vista.mostrarCuenta(Cuenta.toString());
-                    break;
-            }
-            //switch
-        }
-        //while
-    //*/
     }
     //run
     
@@ -59,10 +21,10 @@ public class Controlador {
 		
 		Cajero cajero = new Cajero();
 		
-		//Valida si la tarjeta es real
-		if(!cajero.esTarjetaValida(numeroTarjeta)) {
+		/*/Valida si la tarjeta es real
+		if(!cajero.esTarjetaValida(numeroTarjeta)) {//TODO: Reparar esta joda
 			return false;
-		}
+		}//*/
 		
 		//Valida si numeroTarjeta exite en listaClientes
 		Cliente clienteSeleccionado = null;
@@ -73,6 +35,7 @@ public class Controlador {
 				break;
 			}
 		}
+		
 		
 		if(clienteSeleccionado==null) return false;
 		
@@ -154,9 +117,7 @@ public class Controlador {
     	listaClientes.add(cliente);
     	return cliente;
     }
-    //nuevoCliente
-    
-    
+    //nuevoCliente    
     
 }
 //class
