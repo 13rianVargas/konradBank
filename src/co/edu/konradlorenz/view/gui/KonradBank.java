@@ -152,13 +152,13 @@ public class KonradBank extends JFrame {
 		bodyLogin.setLayout(null);//Desactivar layout automático para usar setBounds()   
 		
 		//Mensaje
-		JLabel lblMsn = new JLabel("Bienvenido(a) al cajero automático KonradBank");
-		lblMsn.setFont(new Font("Arial", Font.ITALIC, 20));
-		lblMsn.setForeground(Color.BLACK);
-		lblMsn.setBounds(0, 25, 600, 50);//x,y,ancho,altura
-		lblMsn.setHorizontalAlignment(SwingConstants.CENTER);//Centrar Horizontalmente
+		JLabel lbllblMsn = new JLabel("Bienvenido(a) al cajero automático KonradBank");
+		lbllblMsn.setFont(new Font("Arial", Font.ITALIC, 20));
+		lbllblMsn.setForeground(Color.BLACK);
+		lbllblMsn.setBounds(0, 25, 600, 50);//x,y,ancho,altura
+		lbllblMsn.setHorizontalAlignment(SwingConstants.CENTER);//Centrar Horizontalmente
 		
-		bodyLogin.add(lblMsn);
+		bodyLogin.add(lbllblMsn);
 		
 		
 		
@@ -241,11 +241,11 @@ public class KonradBank extends JFrame {
 	    bodyDepositar.setBackground(fondoPanel);
 	    bodyDepositar.setLayout(null);
 
-	    JLabel msn = new JLabel("¿Qué cantidad desea depositar?");
-	    msn.setFont(new Font("Arial", Font.PLAIN, 20));
-	    msn.setForeground(Color.BLACK);
-	    msn.setBounds(170, 75, 450, 50);
-	    bodyDepositar.add(msn);
+	    JLabel lbllblMsn = new JLabel("¿Qué cantidad desea depositar?");
+	    lbllblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+	    lbllblMsn.setForeground(Color.BLACK);
+	    lbllblMsn.setBounds(170, 75, 450, 50);
+	    bodyDepositar.add(lblMsn);
 
 	    txtField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
 	    bodyDepositar.add(txtField);
@@ -260,7 +260,30 @@ public class KonradBank extends JFrame {
 	}
 	//*///bodyDepositar
 	
-	//Método para crear bodyRetirar
+	//Método para crear bodyRecibo
+	public JPanel bodyRecibo() {
+
+		bodyRecibo = new JPanel();
+		bodyRecibo.setBounds(0, 150, 600, 450);
+		bodyRecibo.setBackground(fondoPanel);
+		bodyRecibo.setLayout(null);
+		
+				//Mensaje
+				JLabel lblMsn = new JLabel("¿Qué cantidad desea retirar?");
+				lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+				lblMsn.setForeground(Color.BLACK);
+				lblMsn.setBounds(170, 75, 450, 50);
+				bodyRecibo.add(lblMsn);
+				
+				bodyRecibo.add(txtField(100,150,400,50,"Ingrese cantidad a retirar"));
+				bodyRecibo.add(btnRetirar(100, 225, 400, 50, "Retirar"));
+				bodyRecibo.add(btnCancelar(100, 295, 400, 50, "Cancelar"));
+				
+		return bodyRecibo;
+	}
+	//*///bodyRecibo
+	
+	//Método para crear body
 	public JPanel bodyRetirar() {
 
 		bodyRetirar = new JPanel();
@@ -269,11 +292,11 @@ public class KonradBank extends JFrame {
 		bodyRetirar.setLayout(null);
 		
 				//Mensaje
-				JLabel msn = new JLabel("¿Qué cantidad desea retirar?");
-				msn.setFont(new Font("Arial", Font.PLAIN, 20));
-				msn.setForeground(Color.BLACK);
-				msn.setBounds(170, 75, 450, 50);
-				bodyRetirar.add(msn);
+				JLabel lblMsn = new JLabel("¿Qué cantidad desea retirar?");
+				lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+				lblMsn.setForeground(Color.BLACK);
+				lblMsn.setBounds(170, 75, 450, 50);
+				bodyRetirar.add(lblMsn);
 				
 				bodyRetirar.add(txtField(100,150,400,50,"Ingrese cantidad a retirar"));
 				bodyRetirar.add(btnRetirar(100, 225, 400, 50, "Retirar"));
@@ -598,5 +621,6 @@ public class KonradBank extends JFrame {
 		return btnCerrarSesion;
 	}
 	//*/btnCerrarSesion
+	
 }
 //class
