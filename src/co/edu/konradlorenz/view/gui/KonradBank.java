@@ -230,7 +230,7 @@ public class KonradBank extends JFrame {
 	    
 	    return bodyMenuPrincipal;
 	}
-	//*///bodyMenuPrincipal
+	//*/bodyMenuPrincipal
 	
 	// Método para crear bodyDepositar
 	public JPanel bodyDepositar() {
@@ -250,15 +250,43 @@ public class KonradBank extends JFrame {
 	    txtField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
 	    bodyDepositar.add(txtField);
 	    
-	    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
-	    bodyDepositar.add(btnCancelar);
-	    
 	    btnDepositar = btnDepositar(100, 225, 400, 50, "Depositar");
 	    bodyDepositar.add(btnDepositar);
+	    
+	    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
+	    bodyDepositar.add(btnCancelar);
 
 	    return bodyDepositar;
 	}
-	//*///bodyDepositar
+	//*/bodyDepositar
+	
+	//Método para crear bodyRetirar
+	public JPanel bodyRetirar() {
+
+		bodyRetirar = new JPanel();
+		bodyRetirar.setBounds(0, 150, 600, 450);
+		bodyRetirar.setBackground(fondoPanel);
+		bodyRetirar.setLayout(null);
+		
+				//Mensaje
+				JLabel lblMsn = new JLabel("¿Qué cantidad desea retirar?");
+				lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+				lblMsn.setForeground(Color.BLACK);
+				lblMsn.setBounds(170, 75, 450, 50);
+				bodyRetirar.add(lblMsn);
+				
+				txtField = txtField(100,150,400,50,"Ingrese cantidad a retirar");
+				bodyRetirar.add(txtField);
+				
+				btnRetirar = btnRetirar(100, 225, 400, 50, "Retirar");
+			    bodyDepositar.add(btnRetirar);
+			    
+			    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
+			    bodyRetirar.add(btnCancelar);
+				
+		return bodyRetirar;
+	}
+	//*/bodyRetirar
 	
 	//Método para crear bodyRecibo
 	public JPanel bodyRecibo() {
@@ -281,30 +309,7 @@ public class KonradBank extends JFrame {
 				
 		return bodyRecibo;
 	}
-	//*///bodyRecibo
-	
-	//Método para crear body
-	public JPanel bodyRetirar() {
-
-		bodyRetirar = new JPanel();
-		bodyRetirar.setBounds(0, 150, 600, 450);
-		bodyRetirar.setBackground(fondoPanel);
-		bodyRetirar.setLayout(null);
-		
-				//Mensaje
-				JLabel lblMsn = new JLabel("¿Qué cantidad desea retirar?");
-				lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
-				lblMsn.setForeground(Color.BLACK);
-				lblMsn.setBounds(170, 75, 450, 50);
-				bodyRetirar.add(lblMsn);
-				
-				bodyRetirar.add(txtField(100,150,400,50,"Ingrese cantidad a retirar"));
-				bodyRetirar.add(btnRetirar(100, 225, 400, 50, "Retirar"));
-				bodyRetirar.add(btnCancelar(100, 295, 400, 50, "Cancelar"));
-				
-		return bodyRetirar;
-	}
-	//*///bodyRetirar
+	//*/bodyRecibo
 	
 	  // -- // -- // -- // -- // -- // -- //
 	 // -- // -- // DECORATIVOS -- // -- //
