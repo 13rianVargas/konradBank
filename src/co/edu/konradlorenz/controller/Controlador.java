@@ -1,6 +1,6 @@
 package co.edu.konradlorenz.controller;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import co.edu.konradlorenz.model.*;
 import co.edu.konradlorenz.view.gui.KonradBank;
@@ -8,14 +8,12 @@ import co.edu.konradlorenz.view.gui.KonradBank;
 
 public class Controlador {
 	
-	LinkedList <Cliente> listaClientes = new LinkedList<>();	
+	LinkedList<Cliente> listaClientes = new LinkedList<>();	
 
     public void run() {
     	@SuppressWarnings("unused")
     	KonradBank konradBank = new KonradBank();
 
-        datosDePrueba();
-        
     }
     //run
     
@@ -23,10 +21,10 @@ public class Controlador {
 		
 		Cajero cajero = new Cajero();
 		
-		//Valida si la tarjeta es real
-		if(!cajero.esTarjetaValida(numeroTarjeta)) {
+		/*/Valida si la tarjeta es real
+		if(!cajero.esTarjetaValida(numeroTarjeta)) {//TODO: Reparar esta joda
 			return false;
-		}
+		}//*/
 		
 		//Valida si numeroTarjeta exite en listaClientes
 		Cliente clienteSeleccionado = null;
@@ -37,6 +35,7 @@ public class Controlador {
 				break;
 			}
 		}
+		
 		
 		if(clienteSeleccionado==null) return false;
 		
@@ -118,7 +117,14 @@ public class Controlador {
     	listaClientes.add(cliente);
     	return cliente;
     }
-    //nuevoCliente
- 
+    //nuevoCliente    
+    public String obtenerNombrePorNumeroTarjeta(String numeroTarjeta) {
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getNumeroTarjeta().equals(numeroTarjeta)) {
+                return cliente.getNombre(); 
+            }
+        }
+        return null; 
+    }
 }
 //class

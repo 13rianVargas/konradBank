@@ -31,5 +31,5 @@ public class Cajero implements Tarjeta{
 		}
 		return suma % 10 == 0;
 	}
-
+	
 }
