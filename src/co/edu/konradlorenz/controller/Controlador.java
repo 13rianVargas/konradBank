@@ -8,7 +8,8 @@ import co.edu.konradlorenz.view.gui.KonradBank;
 
 public class Controlador {
 	
-	LinkedList<Cliente> listaClientes = new LinkedList<>();	
+	private LinkedList<Cliente> listaClientes = new LinkedList<>();
+	public Cliente clienteSeleccionado;
 
     public void run() {
     	@SuppressWarnings("unused")
@@ -27,7 +28,7 @@ public class Controlador {
 		}//*/
 		
 		//Valida si numeroTarjeta exite en listaClientes
-		Cliente clienteSeleccionado = null;
+		clienteSeleccionado = null;
 
 		for (Cliente cliente : listaClientes) {
 			if(cliente.getNumeroTarjeta().equals(numeroTarjeta)) {
