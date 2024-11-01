@@ -241,10 +241,10 @@ public class KonradBank extends JFrame {
 	    bodyDepositar.setBackground(fondoPanel);
 	    bodyDepositar.setLayout(null);
 
-	    JLabel lbllblMsn = new JLabel("¿Qué cantidad desea depositar?");
-	    lbllblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
-	    lbllblMsn.setForeground(Color.BLACK);
-	    lbllblMsn.setBounds(170, 75, 450, 50);
+	    JLabel lblMsn = new JLabel("¿Qué cantidad desea depositar?");
+	    lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+	    lblMsn.setForeground(Color.BLACK);
+	    lblMsn.setBounds(170, 75, 450, 50);
 	    bodyDepositar.add(lblMsn);
 
 	    txtField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
