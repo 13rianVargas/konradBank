@@ -497,13 +497,12 @@ public class KonradBank extends JFrame {
 	            if (amount.isEmpty()) {
 	                JOptionPane.showMessageDialog(bodyDepositar, "Ingrese una cantidad válida para depositar", "Error", JOptionPane.ERROR_MESSAGE);
 	            } else {
-	               //TODO controlador.depositar(amount);
 	                
-	                // Cambiar al panel de recibo después del depósito
 	                konradBank.remove(bodyDepositar);
-	                //konradBank.add(bodyRecibo); //TODO: Descomentar cuando esté listo el método.
-	                //konradBank.revalidate();
-	                //konradBank.repaint();
+		            //konradBank.add(bodyRecibo()); //TODO: Descomentar cuando esté listo el método.
+					konradBank.revalidate();//Recargar
+					konradBank.repaint();//Recargar
+					
 	            }
 	        }
 	    });
@@ -528,8 +527,11 @@ public class KonradBank extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Acción a realizar cuando se presiona el botón
                 
-                konradBank.remove(bodyRetirar);
-                //konradBank.add(bodyRecibo);//TODO: Descomentar cuando esté listo el método.
+            	konradBank.remove(bodyRetirar);
+	            //konradBank.add(bodyRecibo()); //TODO: Descomentar cuando esté listo el método.
+				konradBank.revalidate();//Recargar
+				konradBank.repaint();//Recargar
+				
             }
             });
 		return btnRetirar;
