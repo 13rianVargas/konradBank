@@ -22,7 +22,7 @@ public class Controlador {
 		
 		Cajero cajero = new Cajero();
 		
-		/*/Valida si la tarjeta es real
+		//Valida si la tarjeta es real
 		if(!cajero.esTarjetaValida(numeroTarjeta)) {//TODO: Reparar esta joda
 			return false;
 		}//*/
