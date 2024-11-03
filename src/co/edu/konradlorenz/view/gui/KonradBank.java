@@ -59,7 +59,6 @@ public class KonradBank extends JFrame {
             String pin = new String(pwdField.getPassword());
             
 			boolean validacion = controlador.validarCredenciales(numeroTarjeta, pin);
-			
 			if(validacion) {
 				konradBank.remove(bodyLogin);//Elimina panel actual
 				konradBank.add(bodyMenuPrincipal());//Agrega nuevo panel
@@ -534,8 +533,8 @@ public class KonradBank extends JFrame {
 	
 	//Método para crear btnDepositar
 	public JButton btnDepositar(int cordX, int cordY, int ancho, int alto, String mensaje) {
-		btnDepositar = new JButton(mensaje);
-		btnDepositar.setBounds(cordX, cordY, ancho, alto);
+	    JButton btnDepositar = new JButton(mensaje);
+	    btnDepositar.setBounds(cordX, cordY, ancho, alto);
 	    btnDepositar.setBackground(Color.BLUE);
 	    btnDepositar.setForeground(Color.WHITE);
 	    btnDepositar.setFont(new Font("Arial", Font.BOLD, 16));
@@ -546,23 +545,53 @@ public class KonradBank extends JFrame {
 	    btnDepositar.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // Acción para el botón de depósito
-	            String amount = txtField.getText();
-	            
-	            // Validación básica del monto ingresado (puedes hacer más validaciones según necesites)
-	            if (amount.isEmpty()) {
-	                JOptionPane.showMessageDialog(bodyDepositar, "Ingrese una cantidad válida para depositar", "Error", JOptionPane.ERROR_MESSAGE);
-	            } else {
-	                
+	            String montoTransaccion = txtField.getText();
+	            boolean validacionMontoD = controlador.validarMonto(montoTransaccion);
+
+	            if (validacionMontoD) {
+	                // El monto es válido, se procede con el cambio de panel
 	                konradBank.remove(bodyDepositar);
-		            //konradBank.add(bodyRecibo()); //TODO: Descomentar cuando esté listo el método.
-					konradBank.revalidate();//Recargar
-					konradBank.repaint();//Recargar
-					
+	                konradBank.add(bodyRecibo()); // Agrega nuevo panel
+	                konradBank.revalidate(); // Recargar
+	                konradBank.repaint();    // Recargar
+	            } else {
+	                // Monto no válido, se muestra la animación de bordes
+	                Border redBorder = BorderFactory.createLineBorder(Color.RED, 3);
+	                Border blueBorder = BorderFactory.createLineBorder(Color.BLUE, 2);
+	                Color redColor = Color.RED;
+	                Color blueColor = Color.BLUE;
+
+	                // Aplicamos el borde y el color inicial
+	                btnIngresar.setBorder(redBorder);
+	                btnIngresar.setBackground(redColor);
+	                txtField.setBorder(redBorder);
+	                pwdField.setBorder(redBorder);
+
+	                // Contador para alternar bordes
+	                final int[] contador = {0};
+
+	                // Alternador de bordes
+	                Timer timer = new Timer(150, event -> {
+	                    if (contador[0] < 6) {
+	                        Border bordeActual = (contador[0] % 2 == 0) ? redBorder : blueBorder;
+	                        Color colorActual = (contador[0] % 2 == 0) ? redColor : blueColor;
+	                        txtField.setBorder(bordeActual);
+	                        pwdField.setBorder(bordeActual);
+	                        btnIngresar.setBorder(bordeActual);
+	                        btnIngresar.setBackground(colorActual);
+
+	                        contador[0]++;
+	                    } else {
+	                        ((Timer) event.getSource()).stop(); // Detiene el Timer
+	                    }
+	                });
+	                
+	                timer.start();
 	            }
 	        }
 	    });
-		return btnDepositar;
+
+	    return btnDepositar;
 	}
 	//*/btnDepositar
 	

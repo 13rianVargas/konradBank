@@ -127,5 +127,16 @@ public class Controlador {
         }
         return null; 
     }
+    
+    public boolean validarMonto(String monto) {
+        try {
+            Integer.parseInt(monto); 
+            return true; 
+        } catch (NumberFormatException e) {
+            return false; 
+        }
+    }
+    
+  
 }
 //class
