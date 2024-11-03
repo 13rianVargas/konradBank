@@ -288,7 +288,7 @@ public class KonradBank extends JFrame {
 	//*/bodyRetirar
 	
 	//Método para crear bodyRecibo
-	public JPanel bodyRecibo() {
+	public JPanel bodyRecibo(String tipoTransaccion, String monto) {
 
 		bodyRecibo = new JPanel();
 		bodyRecibo.setBounds(0, 150, 600, 450);
@@ -298,9 +298,10 @@ public class KonradBank extends JFrame {
 		//Mensaje
 		Cajero cajero = new Cajero(); // Creamos una instancia de Cajero
         String fechaHora = cajero.getActualTime(); // Obtenemos la fecha y hora actuales
-
-        // Mensaje de retiro exitoso
-        JLabel lblMsn = new JLabel("Retiro exitoso");
+        
+       
+    
+        JLabel lblMsn = new JLabel("Resumen de Transacción");
         lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
         lblMsn.setForeground(Color.BLACK);
         lblMsn.setBounds(170, 50, 450, 50);
@@ -313,13 +314,15 @@ public class KonradBank extends JFrame {
         lblFechaHora.setBounds(170, 100, 450, 30);
         bodyRecibo.add(lblFechaHora);
 
-        // Monto retirado
-        JLabel lblMonto = new JLabel("Monto retirado: $" /*/montoRetirado/*/);
+        // Monto retirado/depositado
+        JLabel lblMonto = new JLabel("Monto " + tipoTransaccion.toLowerCase() + ": $" + monto);
         lblMonto.setFont(new Font("Arial", Font.PLAIN, 16));
         lblMonto.setForeground(Color.BLACK);
         lblMonto.setBounds(170, 130, 450, 30);
         bodyRecibo.add(lblMonto);
-
+        
+        
+        
         return bodyRecibo;
 	}
 	//*/bodyRecibo
@@ -539,8 +542,9 @@ public class KonradBank extends JFrame {
 
 	            if (validacionMontoD) {
 	                // El monto es válido, se procede con el cambio de panel
+	            	String tipoTransaccion = "Depositado";
 	                konradBank.remove(bodyDepositar);
-	                konradBank.add(bodyRecibo()); // Agrega nuevo panel
+	                konradBank.add(bodyRecibo(tipoTransaccion, montoTransaccion)); // Agrega nuevo panel
 	                konradBank.revalidate(); // Recargar
 	                konradBank.repaint();    // Recargar
 	            } else {
