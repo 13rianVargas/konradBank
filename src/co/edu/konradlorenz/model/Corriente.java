@@ -13,7 +13,15 @@ public class Corriente extends Cuenta {
         this.sobregiroActual = 0;
     }
 
-    public double getSobregiroActual() {
+    public double getLimiteSobregiro() {
+		return limiteSobregiro;
+	}
+    
+	public double getTasaSobregiro() {
+		return tasaSobregiro;
+	}
+
+	public double getSobregiroActual() {
 		return sobregiroActual;
 	}
 
