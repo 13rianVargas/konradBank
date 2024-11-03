@@ -47,7 +47,7 @@ public class KonradBank extends JFrame {
 	
 	//Colores
 	Color fondoPanel = Color.WHITE;//Fondo de todos los JPanel
-	Color fondoFrame = Color.WHITE;//Fondo del JFrame
+	Color fondoFrame = Color.RED;//Fondo del JFrame
 	
 	//Acción cuando se da enter en el login
 	ActionListener enterLogin = new ActionListener() {
@@ -236,25 +236,24 @@ public class KonradBank extends JFrame {
 	public JPanel bodyDepositar() {
 		
 		bodyDepositar = new JPanel();
-		
 	    bodyDepositar.setBounds(0, 150, 600, 450);
 	    bodyDepositar.setBackground(fondoPanel);
 	    bodyDepositar.setLayout(null);
 
-	    JLabel lblMsn = new JLabel("¿Qué cantidad desea depositar?");
-	    lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
-	    lblMsn.setForeground(Color.BLACK);
-	    lblMsn.setBounds(170, 75, 450, 50);
-	    bodyDepositar.add(lblMsn);
+		    JLabel lblMsn = new JLabel("¿Qué cantidad desea depositar?");
+		    lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+		    lblMsn.setForeground(Color.BLACK);
+		    lblMsn.setBounds(170, 75, 450, 50);
+		    bodyDepositar.add(lblMsn);
 
-	    txtField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
-	    bodyDepositar.add(txtField);
-	    
-	    btnDepositar = btnDepositar(100, 225, 400, 50, "Depositar");
-	    bodyDepositar.add(btnDepositar);
-	    
-	    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
-	    bodyDepositar.add(btnCancelar);
+		    txtField = txtField(100, 150, 400, 50, "Ingrese cantidad a depositar");
+		    bodyDepositar.add(txtField);
+		    
+		    btnDepositar = btnDepositar(100, 225, 400, 50, "Depositar");
+		    bodyDepositar.add(btnDepositar);
+		    
+		    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
+		    bodyDepositar.add(btnCancelar);
 
 	    return bodyDepositar;
 	}
@@ -279,7 +278,7 @@ public class KonradBank extends JFrame {
 				bodyRetirar.add(txtField);
 				
 				btnRetirar = btnRetirar(100, 225, 400, 50, "Retirar");
-			    bodyDepositar.add(btnRetirar);
+				bodyRetirar.add(btnRetirar);
 			    
 			    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
 			    bodyRetirar.add(btnCancelar);
@@ -319,18 +318,21 @@ public class KonradBank extends JFrame {
 	public JPanel head() {
     	// - HEAD - //
         JPanel head = new JPanel();
-        head.setBounds(0, 0, 600, 100);//x,y,ancho,altura
-        head.setBackground(fondoPanel);
         head.setLayout(null);//Desactivar layout automático para usar setBounds()	   
+        head.setBounds(0, 0, 600, 100);//x,y,ancho,altura
+        head.setBackground(Color.CYAN);
+        head.setOpaque(true);//false transparente
 	        
 	        //Title
-	        JLabel title = new JLabel("KONRAD BANK");
-	        title.setFont(new Font("Arial", Font.BOLD, 40));//fuente, negrilla, tamaño
-	        title.setForeground(Color.BLACK);//color letra
-	        title.setBounds(150, 0, 450, 100);//x,y,ancho,altura
-	        //title.setOpaque(false);
+	        JLabel lblTitle = new JLabel("KONRAD BANK");
+	        lblTitle.setFont(new Font("Arial", Font.BOLD, 40));//fuente, negrilla, tamaño
+	        lblTitle.setForeground(Color.BLACK);//color letra
+	        lblTitle.setBounds(0, 0, 600, 100);//x,y,ancho,altura
+	        lblTitle.setHorizontalAlignment(SwingConstants.CENTER);//Centrar Horizontalmente
+	        lblTitle.setBackground(Color.WHITE);
+	        lblTitle.setOpaque(true);//false transparente
 
-	        head.add(title);
+	        head.add(lblTitle);
 	        
     	return head;
     }
