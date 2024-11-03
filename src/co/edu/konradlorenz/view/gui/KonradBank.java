@@ -489,8 +489,8 @@ public class KonradBank extends JFrame {
                 // Acción a realizar cuando se presiona el botón
 				konradBank.remove(bodyMenuPrincipal);//Elimina panel actual
 				konradBank.add(bodyDepositar());//Agrega nuevo panel
-				konradBank.revalidate();//Recargar
-				konradBank.repaint();//Recargar
+                konradBank.revalidate(); //Recarga el contenedor
+                konradBank.repaint(); //Vuelve a pintar el contenedor
             }
             });
 		return btnMenuDepositar;
@@ -515,8 +515,8 @@ public class KonradBank extends JFrame {
                 // Acción a realizar cuando se presiona el botón
 				konradBank.remove(bodyMenuPrincipal);//Elimina panel actual
 				konradBank.add(bodyRetirar());//Agrega nuevo panel
-				konradBank.revalidate();//Recargar
-				konradBank.repaint();//Recargar
+                konradBank.revalidate(); //Recarga el contenedor
+                konradBank.repaint(); //Vuelve a pintar el contenedor
             }
             });
 		return btnMenuRetirar;
@@ -544,9 +544,9 @@ public class KonradBank extends JFrame {
 	                // El monto es válido, se procede con el cambio de panel
 	            	String tipoTransaccion = "Depositado";
 	                konradBank.remove(bodyDepositar);
-	                konradBank.add(bodyRecibo(tipoTransaccion, montoTransaccion)); // Agrega nuevo panel
-	                konradBank.revalidate(); // Recargar
-	                konradBank.repaint();    // Recargar
+	                konradBank.add(bodyRecibo()); // Agrega nuevo panel
+	                konradBank.revalidate(); //Recarga el contenedor
+	                konradBank.repaint(); //Vuelve a pintar el contenedor
 	            } else {
 	                // Monto no válido, se muestra la animación de bordes
 	                Border redBorder = BorderFactory.createLineBorder(Color.RED, 3);
@@ -607,8 +607,8 @@ public class KonradBank extends JFrame {
                 
             	konradBank.remove(bodyRetirar);
 	            //konradBank.add(bodyRecibo()); //TODO: Descomentar cuando esté listo el método.
-				konradBank.revalidate();//Recargar
-				konradBank.repaint();//Recargar
+                konradBank.revalidate(); //Recarga el contenedor
+                konradBank.repaint(); //Vuelve a pintar el contenedor
 				
             }
             });
@@ -633,17 +633,17 @@ public class KonradBank extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Acción a realizar cuando se presiona el botón
                 
-            	try {
-            		konradBank.remove(bodyDepositar);
-            		konradBank.remove(bodyRetirar);
-            	} catch(Exception ex) {
-            		ex.printStackTrace();
-            	} finally {
-	            	konradBank.add(bodyMenuPrincipal());
-					konradBank.revalidate();//Recargar
-					konradBank.repaint();//Recargar
-            	}
+            	// Verifica que bodyDepositar y bodyRetirar no sean nulos antes de intentar usarlos
+            	//isAncestorOf verifica si un componente está contenido dentro de otro
+                if (bodyDepositar != null && konradBank.isAncestorOf(bodyDepositar)) {
+                    konradBank.remove(bodyDepositar);
+                } else if (bodyRetirar != null && konradBank.isAncestorOf(bodyRetirar)) {
+                    konradBank.remove(bodyRetirar);
+                }
 				
+                konradBank.add(bodyMenuPrincipal);
+                konradBank.revalidate(); //Recarga el contenedor
+                konradBank.repaint(); //Vuelve a pintar el contenedor
             }
         });
 		return btnCancelar;
@@ -670,8 +670,8 @@ public class KonradBank extends JFrame {
             	konradBank.remove(bodyMenuPrincipal);
             	controlador.clienteSeleccionado = null;
 	            konradBank.add(bodyLogin());
-				konradBank.revalidate();//Recargar
-				konradBank.repaint();//Recargar
+                konradBank.revalidate(); //Recarga el contenedor
+                konradBank.repaint(); //Vuelve a pintar el contenedor
                 
             }
             });
