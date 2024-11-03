@@ -121,28 +121,26 @@ public class Controlador {
         pin = "9102";
         saldo = 50000000.00;
         nuevoCliente(nombreCompleto, numeroCuenta, numeroDocumento, numeroTarjeta, pin);
+        nuevaCorriente(numeroCuenta, saldo, nombreCompleto);
         
     }
     //datosDePrueba
     
-    public Cliente nuevoCliente(String nombreCompleto, String numeroCuenta, String numeroDocumento, String numeroTarjeta, String pin) {
+    public void nuevoCliente(String nombreCompleto, String numeroCuenta, String numeroDocumento, String numeroTarjeta, String pin) {
     	Cliente cliente = new Cliente(nombreCompleto, numeroCuenta, numeroDocumento, numeroTarjeta, pin);
     	listaClientes.add(cliente);
-    	return cliente;
     }
     //nuevoCliente
     
-    public Cuenta nuevoAhorro(String numeroCuenta, double saldo, String titular) {
+    public void nuevoAhorro(String numeroCuenta, double saldo, String titular) {
     	Cuenta cuenta = new Ahorro(numeroCuenta, saldo, titular);
     	listaCuentas.add(cuenta);
-    	return cuenta;
     }
     //nuevoAhorro 
     
-    public Cuenta nuevaCorriente(String numeroCuenta, double saldo, String titular) {
+    public void nuevaCorriente(String numeroCuenta, double saldo, String titular) {
     	Cuenta cuenta = new Corriente(numeroCuenta, saldo, titular);
     	listaCuentas.add(cuenta);
-    	return cuenta;
     }
     //nuevaCorriente   
     
@@ -156,15 +154,32 @@ public class Controlador {
     }
     //obtenerNombrePorNumeroTarjeta
     
+    public void seleccionarCuenta() {
+    	for (Cuenta cuenta : listaCuentas) {
+            if (cuenta.getNumeroCuenta().equals(clienteSeleccionado.getNumeroCuenta())) {
+                cuentaSeleccionada = cuenta;
+            }
+        }
+    }
+    //seleccionarCuenta
     
-    public boolean validarMonto(String monto) {
+    
+    public boolean depositarMonto(String monto) {
+    	seleccionarCuenta();
+    	
         try {
-            Integer.parseInt(monto); 
+        	
+            double deposito = Double.parseDouble(monto); 
+            double saldoActual = cuentaSeleccionada.getSaldo();
+            
+            cuentaSeleccionada.setSaldo(saldoActual + deposito);
+            
             return true; 
         } catch (NumberFormatException e) {
             return false; 
         }
     }
+    //depositarMonto
     
 }
 //class
