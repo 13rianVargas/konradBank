@@ -163,6 +163,7 @@ public class Controlador {
     }
     //seleccionarCuenta
     
+
     
     public boolean depositarMonto(String monto) {
     	seleccionarCuenta();
@@ -181,5 +182,23 @@ public class Controlador {
     }
     //depositarMonto
     
+    public boolean retirarMonto(String monto) {
+    	seleccionarCuenta();
+    	
+    	try {
+    		double retiro = Double.parseDouble(monto);
+    		double saldoActual = cuentaSeleccionada.getSaldo();
+    		
+    		if(cuentaSeleccionada.getSaldo() >= retiro) {
+    		cuentaSeleccionada.setSaldo(saldoActual - retiro);
+    		return true;}
+    		else {
+    			return false;
+    		}
+    	} catch (NumberFormatException e) {
+    		return false;
+    	}
+    }
+    //retirarMonto
 }
 //class
