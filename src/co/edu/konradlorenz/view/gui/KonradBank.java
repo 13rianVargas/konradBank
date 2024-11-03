@@ -104,17 +104,6 @@ public class KonradBank extends JFrame {
         }
     };
     //enterLogin
-    
-    //Accion cuando se da enter a retirar
-    ActionListener enterRetirar = new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String saldoRetirar = txtField.getText();
-			
-			
-		}
-	};
 	
 	  // -- // -- // -- // -- // -- // -- //
 	 // -- // -- // VENTANAS // -- // -- //
@@ -546,7 +535,7 @@ public class KonradBank extends JFrame {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            String montoTransaccion = txtField.getText();
-	            boolean validacionMontoD = controlador.validarMonto(montoTransaccion);
+	            boolean validacionMontoD = controlador.depositarMonto(montoTransaccion);
 
 	            if (validacionMontoD) {
 	                // El monto es válido, se procede con el cambio de panel
@@ -640,14 +629,16 @@ public class KonradBank extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Acción a realizar cuando se presiona el botón
                 
-            	if(bodyDepositar.isShowing()) {
+            	try {
             		konradBank.remove(bodyDepositar);
-            	} else if(bodyRetirar.isShowing()) {
             		konradBank.remove(bodyRetirar);
+            	} catch(Exception ex) {
+            		ex.printStackTrace();
+            	} finally {
+	            	konradBank.add(bodyMenuPrincipal());
+					konradBank.revalidate();//Recargar
+					konradBank.repaint();//Recargar
             	}
-            	konradBank.add(bodyMenuPrincipal());
-				konradBank.revalidate();//Recargar
-				konradBank.repaint();//Recargar
 				
             }
         });
