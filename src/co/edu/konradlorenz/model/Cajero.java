@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Cajero implements Tarjeta{
 	
-	private String getActualTime(){
+	public String getActualTime(){
 		LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy"); //Formato más agradable a la vista.
 		String actualTime = fechaHoraActual.format(formato);

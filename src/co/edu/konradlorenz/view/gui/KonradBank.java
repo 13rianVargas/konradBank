@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import co.edu.konradlorenz.controller.Controlador;
+import co.edu.konradlorenz.model.Cajero;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -104,6 +105,17 @@ public class KonradBank extends JFrame {
         }
     };
     //enterLogin
+    
+    //Accion cuando se da enter a retirar
+    ActionListener enterRetirar = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String saldoRetirar = txtField.getText();
+			
+			
+		}
+	};
 	
 	  // -- // -- // -- // -- // -- // -- //
 	 // -- // -- // VENTANAS // -- // -- //
@@ -295,18 +307,32 @@ public class KonradBank extends JFrame {
 		bodyRecibo.setBackground(fondoPanel);
 		bodyRecibo.setLayout(null);
 		
-				//Mensaje
-				JLabel lblMsn = new JLabel("¿Qué cantidad desea retirar?");
-				lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
-				lblMsn.setForeground(Color.BLACK);
-				lblMsn.setBounds(170, 75, 450, 50);
-				bodyRecibo.add(lblMsn);
-				
-				bodyRecibo.add(txtField(100,150,400,50,"Ingrese cantidad a retirar"));
-				bodyRecibo.add(btnRetirar(100, 225, 400, 50, "Retirar"));
-				bodyRecibo.add(btnCancelar(100, 295, 400, 50, "Cancelar"));
-				
-		return bodyRecibo;
+		//Mensaje
+		Cajero cajero = new Cajero(); // Creamos una instancia de Cajero
+        String fechaHora = cajero.getActualTime(); // Obtenemos la fecha y hora actuales
+
+        // Mensaje de retiro exitoso
+        JLabel lblMsn = new JLabel("Retiro exitoso");
+        lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+        lblMsn.setForeground(Color.BLACK);
+        lblMsn.setBounds(170, 50, 450, 50);
+        bodyRecibo.add(lblMsn);
+
+        // Fecha y hora
+        JLabel lblFechaHora = new JLabel("Fecha y Hora: " + fechaHora);
+        lblFechaHora.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblFechaHora.setForeground(Color.BLACK);
+        lblFechaHora.setBounds(170, 100, 450, 30);
+        bodyRecibo.add(lblFechaHora);
+
+        // Monto retirado
+        JLabel lblMonto = new JLabel("Monto retirado: $" /*/montoRetirado/*/);
+        lblMonto.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblMonto.setForeground(Color.BLACK);
+        lblMonto.setBounds(170, 130, 450, 30);
+        bodyRecibo.add(lblMonto);
+
+        return bodyRecibo;
 	}
 	//*/bodyRecibo
 	
