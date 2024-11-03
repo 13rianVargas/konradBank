@@ -8,7 +8,11 @@ public class Ahorro extends Cuenta {
         this.limiteRetiros  = 15;
     }
 
-    @Override
+    public int getLimiteRetiros() {
+		return limiteRetiros;
+	}
+
+	@Override
     public String toString() {
         return super.toString() + ", Tasa de Interés: " + ", Límite de Retiros: " + limiteRetiros ;
     }
