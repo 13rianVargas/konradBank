@@ -170,7 +170,8 @@ public class Controlador {
     	
         try {
         	
-            double deposito = Double.parseDouble(monto); 
+            double deposito = Double.parseDouble(monto);
+            if(deposito <= 0) return false; 
             double saldoActual = cuentaSeleccionada.getSaldo();
             
             cuentaSeleccionada.setSaldo(saldoActual + deposito);
@@ -187,6 +188,7 @@ public class Controlador {
     	
     	try {
     		double retiro = Double.parseDouble(monto);
+    		if(retiro <= 0) return false;
     		double saldoActual = cuentaSeleccionada.getSaldo();
     		
     		if(cuentaSeleccionada.getSaldo() >= retiro) {
@@ -198,6 +200,7 @@ public class Controlador {
     	} catch (NumberFormatException e) {
     		return false;
     	}
+    	
     }
     //retirarMonto
 }
