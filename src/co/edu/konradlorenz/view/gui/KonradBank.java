@@ -104,59 +104,7 @@ public class KonradBank extends JFrame {
         }
     };
     //enterLogin
-	
-    //Acción cuando se de enter a Retirar
-    ActionListener enterRetirar = new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String monto = txtField.getText();
-			String tipoTransaccion = "retirado";
-			
-			boolean retiro = controlador.retirarMonto(monto);
-			
-			if(retiro) {
-				konradBank.remove(bodyLogin);
-				konradBank.add(bodyRecibo(tipoTransaccion, monto));
-				konradBank.revalidate();
-				konradBank.repaint();
-			}else {
-				//Inicializo los bordes
-				Border redBorder = BorderFactory.createLineBorder(Color.RED, 3);
-				Border blueBorder = BorderFactory.createLineBorder(Color.BLUE, 2);
-				
-				//Inicializo colores para el botón
-				Color redColor = Color.RED;
-				Color blueColor = Color.BLUE;
-				
-				//Agrego los colores y bordes
-				btnIngresar.setBorder(redBorder);
-				btnIngresar.setBackground(redColor);
-				txtField.setBorder(redBorder);
-				pwdField.setBorder(redBorder);
-				//Contador para alternar bordes
-				final int[] contador = {0};
-				
-				//Alternador de bordes
-				Timer timer = new Timer(150, event -> { // Cambia cada 150 ms
-		            if (contador[0] < 6) { // Se repetirá 3 veces, 3 rojas y 3 azules = 6
-		                Border bordeActual = (contador[0] % 2 == 0) ? redBorder : blueBorder; //Op ternario
-		                Color colorActual = (contador[0] % 2 == 0) ? redColor : blueColor; //Op ternario x2
-		                txtField.setBorder(bordeActual);
-		                pwdField.setBorder(bordeActual);
-		                btnIngresar.setBorder(bordeActual);
-		                btnIngresar.setBackground(colorActual);
-		                
-		                contador[0]++;
-		            } else {
-		                ((Timer) event.getSource()).stop(); //Detiene el Timer
-		            }
-		        });
-				
-				timer.start();
-			}
-		}
-	};
+
 	  // -- // -- // -- // -- // -- // -- //
 	 // -- // -- // VENTANAS // -- // -- //
 	// -- // -- // -- // -- // -- // -- //
@@ -667,23 +615,58 @@ public class KonradBank extends JFrame {
 		
 		Border border = BorderFactory.createLineBorder(Color.BLUE, 2);
 		btnRetirar.setBorder(border);
-		
 
 		btnRetirar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Acción a realizar cuando se presiona el botón
-                
-            	konradBank.remove(bodyRetirar);
-	            //konradBank.add(bodyRecibo()); //TODO: Descomentar cuando esté listo el método.
-                konradBank.revalidate(); //Recarga el contenedor
-                konradBank.repaint(); //Vuelve a pintar el contenedor
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String monto = txtField.getText();
 				
-            }
-            });
-
-		btnIngresar.addActionListener(enterRetirar);
-            
+				boolean retiro = controlador.retirarMonto(monto);
+				
+				if(retiro) {
+					String tipoTransaccion = "Retirado";
+					konradBank.remove(bodyRetirar);
+					konradBank.add(bodyRecibo(tipoTransaccion, monto));
+					konradBank.revalidate();
+					konradBank.repaint();
+				}else {
+					//Inicializo los bordes
+					Border redBorder = BorderFactory.createLineBorder(Color.RED, 3);
+					Border blueBorder = BorderFactory.createLineBorder(Color.BLUE, 2);
+					
+					//Inicializo colores para el botón
+					Color redColor = Color.RED;
+					Color blueColor = Color.BLUE;
+					
+					//Agrego los colores y bordes
+					btnIngresar.setBorder(redBorder);
+					btnIngresar.setBackground(redColor);
+					txtField.setBorder(redBorder);
+					pwdField.setBorder(redBorder);
+					//Contador para alternar bordes
+					final int[] contador = {0};
+					
+					//Alternador de bordes
+					Timer timer = new Timer(150, event -> { // Cambia cada 150 ms
+			            if (contador[0] < 6) { // Se repetirá 3 veces, 3 rojas y 3 azules = 6
+			                Border bordeActual = (contador[0] % 2 == 0) ? redBorder : blueBorder; //Op ternario
+			                Color colorActual = (contador[0] % 2 == 0) ? redColor : blueColor; //Op ternario x2
+			                txtField.setBorder(bordeActual);
+			                pwdField.setBorder(bordeActual);
+			                btnIngresar.setBorder(bordeActual);
+			                btnIngresar.setBackground(colorActual);
+			                
+			                contador[0]++;
+			            } else {
+			                ((Timer) event.getSource()).stop(); //Detiene el Timer
+			            }
+			        });
+					
+					timer.start();
+				}
+			}
+		});
 
 		return btnRetirar;
 	}
