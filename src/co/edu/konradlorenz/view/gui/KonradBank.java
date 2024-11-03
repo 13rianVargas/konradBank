@@ -304,7 +304,7 @@ public class KonradBank extends JFrame {
 		    btnDepositar = btnDepositar(100, 225, 400, 50, "Depositar");
 		    bodyDepositar.add(btnDepositar);
 		    
-		    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
+		    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar", Color.RED, Color.RED);
 		    bodyDepositar.add(btnCancelar);
 
 	    return bodyDepositar;
@@ -332,7 +332,7 @@ public class KonradBank extends JFrame {
 				btnRetirar = btnRetirar(100, 225, 400, 50, "Retirar");
 				bodyRetirar.add(btnRetirar);
 			    
-			    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar");
+			    btnCancelar = btnCancelar(100, 295, 400, 50, "Cancelar", Color.RED, Color.RED);
 			    bodyRetirar.add(btnCancelar);
 				
 		return bodyRetirar;
@@ -354,25 +354,41 @@ public class KonradBank extends JFrame {
        
     
         JLabel lblMsn = new JLabel("Resumen de Transacción");
-        lblMsn.setFont(new Font("Arial", Font.PLAIN, 20));
+        lblMsn.setFont(new Font("Arial", Font.PLAIN, 30));
         lblMsn.setForeground(Color.BLACK);
-        lblMsn.setBounds(170, 50, 450, 50);
+        lblMsn.setBounds(0, 50, 600, 50);
+        lblMsn.setHorizontalAlignment(SwingConstants.CENTER);//Centrar Horizontalmente
         bodyRecibo.add(lblMsn);
 
         // Fecha y hora
         JLabel lblFechaHora = new JLabel("Fecha y Hora: " + fechaHora);
         lblFechaHora.setFont(new Font("Arial", Font.PLAIN, 16));
         lblFechaHora.setForeground(Color.BLACK);
-        lblFechaHora.setBounds(170, 100, 450, 30);
+        lblFechaHora.setBounds(0, 120, 600, 50);
+        lblFechaHora.setHorizontalAlignment(SwingConstants.CENTER);//Centrar Horizontalmente
         bodyRecibo.add(lblFechaHora);
 
         // Monto retirado/depositado
         JLabel lblMonto = new JLabel("Monto " + tipoTransaccion.toLowerCase() + ": $" + monto);
         lblMonto.setFont(new Font("Arial", Font.PLAIN, 16));
         lblMonto.setForeground(Color.BLACK);
-        lblMonto.setBounds(170, 130, 450, 30);
+        lblMonto.setBounds(0, 170, 600, 50);
+        lblMonto.setHorizontalAlignment(SwingConstants.CENTER);//Centrar Horizontalmente
         bodyRecibo.add(lblMonto);
         
+        // Monto total
+        JLabel lblTotal = new JLabel("Saldo actual de la cuenta : $" + String.format("%.2f", controlador.cuentaSeleccionada.getSaldo()));
+        lblTotal.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblTotal.setForeground(Color.BLACK);
+        lblTotal.setBounds(0, 220, 600, 50);
+        lblTotal.setHorizontalAlignment(SwingConstants.CENTER);//Centrar Horizontalmente
+        bodyRecibo.add(lblTotal);
+        
+	    btnCancelar = btnCancelar(25, 345, 250, 50, "Realizar otra transacción", Color.BLUE, Color.BLUE);
+	    bodyRecibo.add(btnCancelar);
+        
+	    btnCancelar = btnCerrarSesion(325, 345, 250, 50, "Finalizar transacción");
+	    bodyRecibo.add(btnCancelar);
         
         
         return bodyRecibo;
@@ -674,15 +690,15 @@ public class KonradBank extends JFrame {
 	//*/btnRetirar
 
 	//Método para crear btnCancelar
-	public JButton btnCancelar(int cordX, int cordY, int ancho, int alto, String mensaje) {
+	public JButton btnCancelar(int cordX, int cordY, int ancho, int alto, String mensaje, Color color, Color borde) {
 		btnCancelar = new JButton(mensaje);
 		btnCancelar.setBounds(cordX, cordY, ancho, alto);
-		btnCancelar.setBackground(Color.RED);
+		btnCancelar.setBackground(color);
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCancelar.setOpaque(true);
 		
-		Border border = BorderFactory.createLineBorder(Color.RED, 2);
+		Border border = BorderFactory.createLineBorder(borde, 2);
 		btnCancelar.setBorder(border);
 		
 		btnCancelar.addActionListener(new ActionListener() {
@@ -691,11 +707,13 @@ public class KonradBank extends JFrame {
                 // Acción a realizar cuando se presiona el botón
                 
             	// Verifica que bodyDepositar y bodyRetirar no sean nulos antes de intentar usarlos
-            	//isAncestorOf verifica si un componente está contenido dentro de otro
+            	// isAncestorOf verifica si un componente está contenido dentro de otro
                 if (bodyDepositar != null && konradBank.isAncestorOf(bodyDepositar)) {
                     konradBank.remove(bodyDepositar);
                 } else if (bodyRetirar != null && konradBank.isAncestorOf(bodyRetirar)) {
                     konradBank.remove(bodyRetirar);
+                } else if (bodyRecibo != null && konradBank.isAncestorOf(bodyRecibo)) {
+                	konradBank.remove(bodyRecibo);
                 }
 				
                 konradBank.add(bodyMenuPrincipal);
@@ -724,8 +742,16 @@ public class KonradBank extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Acción a realizar cuando se presiona el botón
                 
-            	konradBank.remove(bodyMenuPrincipal);
+            	// Verifica que bodyDepositar y bodyRetirar no sean nulos antes de intentar usarlos
+            	// isAncestorOf verifica si un componente está contenido dentro de otro
+            	if (bodyMenuPrincipal != null && konradBank.isAncestorOf(bodyMenuPrincipal)) {
+            		konradBank.remove(bodyMenuPrincipal);
+                } else if (bodyRecibo != null && konradBank.isAncestorOf(bodyRecibo)) {
+                	konradBank.remove(bodyRecibo);
+                }
+            	
             	controlador.clienteSeleccionado = null;
+            	controlador.cuentaSeleccionada = null;
 	            konradBank.add(bodyLogin());
                 konradBank.revalidate(); //Recarga el contenedor
                 konradBank.repaint(); //Vuelve a pintar el contenedor
