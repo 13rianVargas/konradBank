@@ -9,7 +9,9 @@ import co.edu.konradlorenz.view.gui.KonradBank;
 public class Controlador {
 	
 	private LinkedList<Cliente> listaClientes = new LinkedList<>();
+	private LinkedList<Cuenta> listaCuentas = new LinkedList<>();
 	public Cliente clienteSeleccionado;
+	public Cuenta cuentaSeleccionada;
 
     public void run() {
     	@SuppressWarnings("unused")
@@ -22,8 +24,8 @@ public class Controlador {
 		
 		Cajero cajero = new Cajero();
 		
-		/*/Valida si la tarjeta es real
-		if(!cajero.esTarjetaValida(numeroTarjeta)) {//TODO: Reparar esta joda
+		//Valida si la tarjeta es real
+		if(!cajero.esTarjetaValida(numeroTarjeta)) {
 			return false;
 		}//*/
 		
@@ -69,14 +71,17 @@ public class Controlador {
         String numeroDocumento;
         String numeroTarjeta;
         String pin;
+        double saldo; 
     	
         // Ejemplo 1
     	nombreCompleto = "Pepito Pérez";
-        numeroCuenta = "703213123";
+    	numeroCuenta = "703213123";
         numeroDocumento = "1000123123";
         numeroTarjeta ="4539 1488 0343 6467" ;
         pin = "1234";
+        saldo = 10000000.00;
         nuevoCliente(nombreCompleto, numeroCuenta, numeroDocumento, numeroTarjeta, pin);
+        nuevoAhorro(numeroCuenta, saldo, nombreCompleto);
 
         // Ejemplo 2
         nombreCompleto = "Ana Torres";
@@ -84,7 +89,9 @@ public class Controlador {
         numeroDocumento = "900123456";
         numeroTarjeta = "6011 1111 1111 1117";
         pin = "4567";
+        saldo = 500000.00;
         nuevoCliente(nombreCompleto, numeroCuenta, numeroDocumento, numeroTarjeta, pin);
+        nuevoAhorro(numeroCuenta, saldo, nombreCompleto);
 
         // Ejemplo 3
         nombreCompleto = "Luis Fernández";
@@ -92,7 +99,9 @@ public class Controlador {
         numeroDocumento = "101928374";
         numeroTarjeta = "5105 1051 0510 5100";
         pin = "8910";
+        saldo = 1000000.00;
         nuevoCliente(nombreCompleto, numeroCuenta, numeroDocumento, numeroTarjeta, pin);
+        nuevaCorriente(numeroCuenta, saldo, nombreCompleto);
 
         // Ejemplo 4
         nombreCompleto = "Mariana Gómez";
@@ -100,7 +109,9 @@ public class Controlador {
         numeroDocumento = "102837465";
         numeroTarjeta = "4111 1111 1111 1111";
         pin = "2468";
+        saldo = 300.00;
         nuevoCliente(nombreCompleto, numeroCuenta, numeroDocumento, numeroTarjeta, pin);
+        nuevaCorriente(numeroCuenta, saldo, nombreCompleto);
         
         // Ejemplo 5
         nombreCompleto = "Isolda Tristán";
@@ -108,6 +119,7 @@ public class Controlador {
         numeroDocumento = "108365723";
         numeroTarjeta = "3782 822463 10005";
         pin = "9102";
+        saldo = 50000000.00;
         nuevoCliente(nombreCompleto, numeroCuenta, numeroDocumento, numeroTarjeta, pin);
         
     }
@@ -118,7 +130,22 @@ public class Controlador {
     	listaClientes.add(cliente);
     	return cliente;
     }
-    //nuevoCliente    
+    //nuevoCliente
+    
+    public Cuenta nuevoAhorro(String numeroCuenta, double saldo, String titular) {
+    	Cuenta cuenta = new Ahorro(numeroCuenta, saldo, titular);
+    	listaCuentas.add(cuenta);
+    	return cuenta;
+    }
+    //nuevoAhorro 
+    
+    public Cuenta nuevaCorriente(String numeroCuenta, double saldo, String titular) {
+    	Cuenta cuenta = new Corriente(numeroCuenta, saldo, titular);
+    	listaCuentas.add(cuenta);
+    	return cuenta;
+    }
+    //nuevaCorriente   
+    
     public String obtenerNombrePorNumeroTarjeta(String numeroTarjeta) {
         for (Cliente cliente : listaClientes) {
             if (cliente.getNumeroTarjeta().equals(numeroTarjeta)) {
@@ -127,5 +154,17 @@ public class Controlador {
         }
         return null; 
     }
+    //obtenerNombrePorNumeroTarjeta
+    
+    
+    public boolean validarMonto(String monto) {
+        try {
+            Integer.parseInt(monto); 
+            return true; 
+        } catch (NumberFormatException e) {
+            return false; 
+        }
+    }
+    
 }
 //class
